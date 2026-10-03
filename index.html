@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Casinetori · Casino de mentira y juegos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-03-k">
+<meta name="app-version" content="2026-10-03-l">
 <link rel="icon" type="image/png" href="favicon.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -1584,6 +1584,9 @@ button:focus-visible,[role="button"]:focus-visible,summary:focus-visible,a:focus
 .invlad{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}.invlad span{flex:none;display:flex;flex-direction:column;align-items:center;padding:6px 10px;border:2px solid var(--line);border-radius:8px;font:800 12px var(--f-n);color:var(--muted)}
 .invlad span i{font-style:normal;font-size:11px;opacity:.8}.invlad span.got{border-color:var(--mint);color:var(--mint)}.invlad span.nx{border-color:var(--sun);color:var(--sun)}
 .invcard .inl{display:inline;font:inherit;color:var(--fg)}
+.wodds{width:100%;max-width:300px;text-align:left;margin-top:4px}.wodds summary{cursor:pointer;font-weight:900;font-size:13px;color:var(--sun);text-align:center;list-style:none}.wodds summary::-webkit-details-marker{display:none}
+.wol{display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;margin:8px 0 4px}.wol div{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700}.wol .sw{width:12px;height:12px;border-radius:3px;flex:none}.wol b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.wol em{font-style:normal;font:800 12px var(--f-n);color:var(--muted)}
+.wodds small{display:block;font-size:11px;color:var(--muted);text-align:center}
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -4903,6 +4906,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-03-l',t:'Ruletas con probabilidades',items:[['🎲','Probabilidades','Las ruletas de Inicio ya no tienen todos los huecos iguales: los premios gordos tienen el hueco más pequeño. Debajo de la ruleta puedes ver la probabilidad exacta de cada premio.','new','#ff6b4a']]},
  {v:'2026-10-03-k',t:'Actualizaciones al momento',items:[['🚀','Aviso al momento','Cuando sale una versión nueva te avisa en menos de un minuto, sin recargar, y gastando muy pocos datos.','new','#ffd600']]},
  {v:'2026-10-03-i',t:'Invita y presume',items:[['🎁','Invita a tus colegas','En Inicio y en Ranking tienes tu enlace. Tu colega entra con él y se lleva 50.000 €. Cuando llegue a nivel 3 cobras tú: 100.000 € por el primero, y cada invitación paga más, hasta 2.000.000 € a partir del 20º. Además os hacéis amigos solos.','new','#14e08a'],['📸','Comparte tus récords','Cuando consigues tu mayor premio en el casino o acabas una partida, puedes compartir una imagen chula para picar a tus colegas.','new','#ff2e88']]},
  {v:'2026-10-03-h',t:'Dash nuevo',items:[['🚀','Dash sin cubo','Ahora todo el nivel es nave y onda, con portales entre una y otra.','new','#ff4fd8'],['🪶','Nave más ligera','La nave pesa menos y sube y baja más suave, como en el juego de verdad.','fix','#3ff0ff'],['🧱','Sin muertes tontas','Con la nave puedes ir pegado al suelo, al techo o encima de un bloque plano sin morir. Solo matan los pinchos y chocar de frente con una pared.','fix','#14e08a'],['🎨','Portada nueva','La portada de Dash ahora enseña la nave y la onda.','new','#ffd600']]},
@@ -5843,11 +5847,11 @@ const WHEELS=[
  {id:'mult',t:'Ruleta multiplicadora',d:'Multiplica lo que ganes en el casino durante 5 minutos.',segs:()=>[1.2,1.5,1.2,2,1.3,1.5,1.2,3].map((v,i)=>({lab:'x'+String(v).replace('.',','),col:WCOL[i],k:'mult',v}))}];
 const curWheel=()=>WHEELS[((S.wheelIdx||0)%WHEELS.length+WHEELS.length)%WHEELS.length];
 let wSegs=null;
-drawWheel=function(){const c=$('#wheel');if(!c)return;const W_=curWheel();wSegs=W_.segs();const g=c.getContext('2d'),n=wSegs.length,R=190,seg=Math.PI*2/n;g.clearRect(0,0,400,400);
+drawWheel=function(){const c=$('#wheel');if(!c)return;const W_=curWheel();wSegs=wWeigh(W_.id,W_.segs());const g=c.getContext('2d'),n=wSegs.length,R=190;g.clearRect(0,0,400,400);
   g.fillStyle='#141a2e';g.beginPath();g.arc(200,200,198,0,7);g.fill();
-  wSegs.forEach((p,i)=>{const a0=i*seg-Math.PI/2;g.beginPath();g.moveTo(200,200);g.arc(200,200,R-6,a0,a0+seg);g.closePath();g.fillStyle=p.col;g.fill();
-    g.save();g.translate(200,200);g.rotate(a0+seg/2);g.fillStyle=p.k==='lose'?'#ff8a96':p.big?'#141a2e':'#141a2e';g.font=(p.emo?'40px ':n>8?'26px ':'32px ')+(p.emo?'sans-serif':'"Anton",sans-serif');g.textAlign='right';g.textBaseline='middle';g.fillText(p.lab,R-20,0);g.restore()});
-  for(let i=0;i<n;i++){const a=i*seg-Math.PI/2;g.strokeStyle='#141a2e';g.lineWidth=5;g.beginPath();g.moveTo(200,200);g.lineTo(200+Math.cos(a)*(R-6),200+Math.sin(a)*(R-6));g.stroke();
+  wSegs.forEach((p,i)=>{const a0=p.a0*Math.PI*2-Math.PI/2,seg=p.p*Math.PI*2;g.beginPath();g.moveTo(200,200);g.arc(200,200,R-6,a0,a0+seg);g.closePath();g.fillStyle=p.col;g.fill();
+    g.save();g.translate(200,200);g.rotate(a0+seg/2);g.fillStyle=p.k==='lose'?'#ff8a96':'#141a2e';const fs=Math.max(14,Math.min(p.emo?40:32,Math.round(seg*R*.62)));g.font=fs+'px '+(p.emo?'sans-serif':'"Anton",sans-serif');g.textAlign='right';g.textBaseline='middle';g.fillText(p.lab,R-20,0);g.restore()});
+  for(let i=0;i<n;i++){const a=wSegs[i].a0*Math.PI*2-Math.PI/2;g.strokeStyle='#141a2e';g.lineWidth=5;g.beginPath();g.moveTo(200,200);g.lineTo(200+Math.cos(a)*(R-6),200+Math.sin(a)*(R-6));g.stroke();
     g.fillStyle='#fff';g.beginPath();g.arc(200+Math.cos(a)*(R+1),200+Math.sin(a)*(R+1),5,0,7);g.fill()}
   g.fillStyle='#141a2e';g.beginPath();g.arc(200,200,34,0,7);g.fill();g.fillStyle='#ffc23d';g.beginPath();g.arc(200,200,24,0,7);g.fill();
   const t=$('#wheelTitle'),d=$('#wheelDesc');if(t)t.textContent=W_.t;if(d)d.textContent=W_.d;const card=c.closest('.wheelcard');if(card)card.dataset.w=W_.id};
@@ -5863,7 +5867,7 @@ function boxPrize(){const r=Math.random(),m=wMult();
 const _cwM=casinoWin;casinoWin=function(n,g,bet){const m=S.casMult&&+S.casMult.until>Date.now()?+S.casMult.v:1;if(m>1&&n>(bet||0)){const extra=Math.floor((n-(bet||0))*(m-1));if(extra>0){give(extra);toast('Multiplicador x'+String(m).replace('.',','),'+'+short(extra)+' € extra','var(--sun)','🔥')}}_cwM(n,g,bet)};
 const _wbOld=$('#wheelBtn').cloneNode(true);$('#wheelBtn').replaceWith(_wbOld);
 $('#wheelBtn').addEventListener('click',()=>{if(wBusy||Date.now()-S.wheelAt<WAIT)return;wBusy=true;S.wheelAt=Date.now();save();
-  const W_=curWheel(),segs=wSegs||W_.segs(),n=segs.length,seg=360/n,k=Math.floor(Math.random()*n);const target=360-(k+.5)*seg+rnd(-seg*.3,seg*.3);
+  const W_=curWheel(),segs=wSegs||wWeigh(W_.id,W_.segs());let r_=Math.random(),k=0;for(;k<segs.length-1;k++){if(r_<segs[k].p)break;r_-=segs[k].p}const S0=segs[k].a0*360,SZ=segs[k].p*360;const target=360-(S0+SZ*(.5+rnd(-.3,.3)));
   wRot=wRot-(wRot%360)+360*6+target;$('#wheel').style.transform=`rotate(${wRot}deg)`;wheelInfo();$('#wheelSkip').disabled=true;
   let tk=0;const iv=setInterval(()=>{sfx('tick');if(++tk>40)clearInterval(iv)},100);
   setTimeout(()=>{wBusy=false;const p=segs[k];xp(10);
@@ -8576,6 +8580,18 @@ const _bwBrag=bigWin;bigWin=function(g,win,bet){const cur=(S.bw||{})[g];const be
 const _ovBrag=overlay;overlay=function(mode,d){const r=_ovBrag.apply(this,arguments);try{if(mode==='over'&&d&&G&&gid){const ob=$('#over .obtns');if(ob&&!ob.querySelector('[data-brag]')){
     const sc=G.fmt?G.fmt(d.sc):fmt(d.sc)+' '+String(G.unit||'').toLowerCase();ob.insertAdjacentHTML('afterbegin',`<button class="btn mint" data-brag="1">📸 Compartir</button>`);
     ob.querySelector('[data-brag]').onclick=()=>shareBrag({emo:'🕹️',top:'Mi partida en '+G.name+' ('+diffName(curDiff())+')',big:String(sc),sub:d.better?'¡Nuevo récord!':'',col:'#3ff0ff'})}}}catch(e){}return r};
+
+/* ---- probabilidades de las ruletas ---- */
+function wWts(){return{money:[20,12,16,5,18,8,14,3],xp:[20,12,16,5,14,8,18,3],mult:[20,12,20,6,16,12,20,3]}}
+function wWeigh(id,segs){let ws;if(id==='money'||id==='xp'||id==='mult'){const base=wWts()[id];ws=segs.map((s_,i)=>base[i]!=null?base[i]:5)}
+  else if(id==='risk')ws=segs.map(s_=>1);else ws=segs.map(s_=>1);
+  const tot=ws.reduce((a,b)=>a+b,0)||1;let acc=0;return segs.map((s_,i)=>{const p=ws[i]/tot,o={...s_,p,a0:acc};acc+=p;return o})}
+function wOddsHTML(){if(!wSegs)return'';const W_=curWheel();const map=new Map();wSegs.forEach(s_=>{const k=s_.k+'|'+s_.lab;const m=map.get(k)||{s:s_,p:0};m.p+=s_.p;map.set(k,m)});
+  const rows=[...map.values()].sort((a,b)=>(b.s.v||0)-(a.s.v||0)||b.p-a.p);
+  const pc=p=>{const v=p*100;return(v<1?v.toFixed(1):v<10?v.toFixed(1):Math.round(v)).toString().replace('.',',')+' %'};
+  return`<details class="wodds"><summary>🎲 Probabilidades</summary><div class="wol">${rows.map(r=>`<div><span class="sw" style="background:${r.s.col}"></span><b>${esc(r.s.k==='box'?'Caja sorpresa':r.s.lab)}</b><em>${pc(r.p)}</em></div>`).join('')}</div><small>El tamaño de cada hueco de la ruleta es su probabilidad de verdad.</small></details>`}
+const _dwOdds=drawWheel;drawWheel=function(){const r=_dwOdds.apply(this,arguments);try{const card=$('.wheelcard');if(card){let el=$('#wheelOdds');const op=el&&el.querySelector('details')&&el.querySelector('details').open;if(!el){el=document.createElement('div');el.id='wheelOdds';const inf=$('#wheelInfo');inf.insertAdjacentElement('afterend',el)}el.innerHTML=wOddsHTML();if(op)el.querySelector('details').open=true}}catch(e){}return r};
+try{drawWheel()}catch(e){}
 })();
 </script>
 
