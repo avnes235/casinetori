@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Casinetori · Casino de mentira y juegos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-03-d">
+<meta name="app-version" content="2026-10-03-j">
+<meta name="app-important" content="Arreglo importante: el ranking no se actualizaba y había un fallo que duplicaba dinero en el Online. Actualiza para que tu ficha salga bien a todo el mundo.">
 <link rel="icon" type="image/png" href="favicon.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
 @media (max-width:880px){.nav .nb{font-size:9px;letter-spacing:0;min-width:0;overflow:hidden}.nav .nb .ico{width:36px}}
 @media (max-width:360px){.nav .nb{font-size:0}.nav .nb[aria-current="page"]{font-size:9px}}
-@media (max-width:880px){.nav .nb[data-v="ayuda"]{display:none}}
 .betbar .pchip{font-size:10px;letter-spacing:-.3px}
 /* ================= Casino: 10 juegos nuevos (c10) ================= */
 /* Pestañas: en móvil una sola fila que se desliza */
@@ -1559,6 +1559,32 @@ button:focus-visible,[role="button"]:focus-visible,summary:focus-visible,a:focus
 #v-trading .tr-acct{grid-template-columns:minmax(0,1fr) auto}#v-trading .tr-help{white-space:normal;max-width:45vw}
 #trLiveBar .tlb{min-width:0;overflow:hidden}#trLiveBar .sd{min-width:0;overflow:hidden;text-overflow:ellipsis}@media(max-width:400px){#trLiveBar .pp{display:none}#trLiveBar .tlb{font-size:12px}}
 .mbox{max-height:calc(100dvh - 32px)}
+#impUpd{position:fixed;inset:0;z-index:9999;background:rgba(5,6,14,.82);backdrop-filter:blur(6px);display:grid;place-items:center;padding:16px}
+#impUpd[hidden]{display:none}
+#impUpd .impbox{max-width:440px;width:100%;background:#15182a;border:3px solid var(--red);border-radius:14px;padding:24px 20px;text-align:center;display:flex;flex-direction:column;gap:10px;box-shadow:0 0 0 6px rgba(255,59,79,.18),0 30px 80px rgba(0,0,0,.6);animation:impin .35s cubic-bezier(.2,1.4,.4,1)}
+#impUpd .impico{font-size:54px;line-height:1;animation:impsh 1.2s infinite}#impUpd small{font:900 13px var(--f-b);letter-spacing:2px;text-transform:uppercase;color:var(--red)}
+#impUpd h2{font-size:34px;margin:0}#impUpd p{margin:0;font-weight:700;color:var(--muted);line-height:1.45}#impUpd .btn{width:100%;margin-top:6px}#impUpd .impnote{font-size:12px;font-weight:700;opacity:.7}
+@keyframes impin{from{transform:scale(.8);opacity:0}}@keyframes impsh{0%,100%{transform:rotate(0)}10%{transform:rotate(-12deg)}20%{transform:rotate(12deg)}30%{transform:rotate(0)}}
+@media (max-width:880px){
+  .nav{justify-content:flex-start;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;padding-left:4px;padding-right:4px;
+    -webkit-mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 26px),transparent);mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 26px),transparent)}
+  .nav::-webkit-scrollbar{display:none}
+  .nav .nb{flex:0 0 auto;min-width:66px;width:auto;padding:4px 6px;scroll-snap-align:start;white-space:nowrap;font-size:10.5px;letter-spacing:.2px}
+  .nav .nb[hidden]{display:none}
+  .nav.end{-webkit-mask-image:none;mask-image:none}
+}
+@media (pointer:fine){.hsx{scrollbar-width:thin!important;scrollbar-color:rgba(255,255,255,.35) transparent;cursor:grab}.hsx::-webkit-scrollbar{display:block!important;height:7px}.hsx::-webkit-scrollbar-thumb{background:rgba(255,255,255,.3);border-radius:4px}.hsx.hsdrag{cursor:grabbing;user-select:none}.hsx.hsdrag *{pointer-events:none}}
+.invcard{margin-top:16px;display:flex;flex-direction:column;gap:10px;border:2px solid color-mix(in srgb,var(--mint) 55%,var(--line))}
+.invcard .ih{display:flex;gap:12px;align-items:center}.invcard .ih .emo{font-size:38px}.invcard b{display:block;font:24px var(--f-d)}.invcard small{display:block;color:var(--muted);font-weight:700}.invcard em{font-style:normal;color:var(--mint);font-weight:900}
+.invlink{font:800 14px var(--f-n);background:var(--bg2);border:2px dashed var(--line);padding:10px;border-radius:8px;overflow-wrap:anywhere;color:var(--sun)}
+.invbtns{display:flex;gap:8px;flex-wrap:wrap}.invbtns .btn{flex:1 1 140px}.invn{font-size:13px}
+#v-ranking #invRank .invcard{margin-top:0}
+.tipbox.brag{border-color:var(--mint)}.tipbox.brag .tgo{background:var(--mint)}
+.invnext{display:flex;align-items:baseline;justify-content:space-between;gap:10px;background:color-mix(in srgb,var(--sun) 12%,var(--bg2));border:2px solid var(--sun);border-radius:8px;padding:8px 12px;flex-wrap:wrap}
+.invnext small{color:var(--muted);font-weight:800}.invnext b{font:900 26px var(--f-n);color:var(--sun)}
+.invlad{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}.invlad span{flex:none;display:flex;flex-direction:column;align-items:center;padding:6px 10px;border:2px solid var(--line);border-radius:8px;font:800 12px var(--f-n);color:var(--muted)}
+.invlad span i{font-style:normal;font-size:11px;opacity:.8}.invlad span.got{border-color:var(--mint);color:var(--mint)}.invlad span.nx{border-color:var(--sun);color:var(--sun)}
+.invcard .inl{display:inline;font:inherit;color:var(--fg)}
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2806,6 +2832,7 @@ html[data-fit="s"]{zoom:.88}html[data-fit="x"]{zoom:.76}
     <button class="nb" data-v="online" style="--c:var(--red)"><span class="ico"><svg class="ic"><use href="#i-swords"/></svg></span>Online</button>
     <button class="nb" data-v="trading" style="--c:var(--mint)"><span class="ico"><svg class="ic"><use href="#i-chart"/></svg></span>Trading</button>
     <button class="nb" data-v="ayuda" style="--c:var(--sky)"><span class="ico"><svg class="ic"><use href="#i-help"/></svg></span>Ayuda</button>
+    <button class="nb" data-v="ajustes" style="--c:var(--muted)"><span class="ico"><svg class="ic"><use href="#i-gear"/></svg></span>Ajustes</button>
     <button class="nb" data-v="admin" id="navAdmin" hidden style="--c:var(--red)"><span class="ico"><svg class="ic"><use href="#i-shield"/></svg></span>Admin</button>
     <div class="navfoot">Todo se juega con dinero de mentira. Tu partida se guarda sola en este navegador.</div>
   </nav>
@@ -4877,6 +4904,11 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-03-i',t:'Invita y presume',items:[['🎁','Invita a tus colegas','En Inicio y en Ranking tienes tu enlace. Tu colega entra con él y se lleva 50.000 €. Cuando llegue a nivel 3 cobras tú: 100.000 € por el primero, y cada invitación paga más, hasta 2.000.000 € a partir del 20º. Además os hacéis amigos solos.','new','#14e08a'],['📸','Comparte tus récords','Cuando consigues tu mayor premio en el casino o acabas una partida, puedes compartir una imagen chula para picar a tus colegas.','new','#ff2e88']]},
+ {v:'2026-10-03-h',t:'Dash nuevo',items:[['🚀','Dash sin cubo','Ahora todo el nivel es nave y onda, con portales entre una y otra.','new','#ff4fd8'],['🪶','Nave más ligera','La nave pesa menos y sube y baja más suave, como en el juego de verdad.','fix','#3ff0ff'],['🧱','Sin muertes tontas','Con la nave puedes ir pegado al suelo, al techo o encima de un bloque plano sin morir. Solo matan los pinchos y chocar de frente con una pared.','fix','#14e08a'],['🎨','Portada nueva','La portada de Dash ahora enseña la nave y la onda.','new','#ffd600']]},
+ {v:'2026-10-03-g',t:'Deslizar en el ordenador',items:[['🖱️','Filas deslizables en PC','Las filas que se deslizan de lado (piques del online, retos, fichas, juegos…) ahora se mueven en el ordenador con la rueda del ratón, arrastrando o con su barrita.','fix','#3f7cff']]},
+ {v:'2026-10-03-f',t:'Barra completa',items:[['📱','Barra de abajo completa','En el móvil la barra de abajo se desliza de lado: ahora salen todas las secciones, también Ayuda y Ajustes.','fix','#3f7cff'],['📈','El trading cuenta','Lo que ganas o pierdes en el trading (con dinero de verdad) suma al Rey de las ganancias y de las pérdidas, y tiene sus propios récords.','new','#14e08a']]},
+ {v:'2026-10-03-e',t:'Aviso importante',items:[['⚠️','Actualizaciones importantes','Cuando hay un arreglo importante te sale un aviso en el centro con un botón para actualizar al momento.','new','#ff3b4f'],['🏆','Ranking y récords','Arreglado del todo: tu ficha, tus récords del casino y tu dinero se ven igual para todos.','fix','#14e08a']]},
  {v:'2026-10-03-d',t:'Ranking en tiempo real',items:[['🏆','Ranking arreglado','Quien había comprado algo en el Millonario dejaba de actualizarse en el ranking. Ya se actualiza para todos.','fix','#14e08a'],['📈','Trading en el móvil','Tus operaciones salen encima del gráfico con su ganancia en directo y un botón para cerrarlas.','new','#14e08a'],['⌨️','Teclado','Enter o espacio para jugar, Escape para volver o cerrar, y flechas para moverte por los botones.','new','#3f7cff'],['🎡','Todo o nada con más riesgo','La ruleta del todo o nada crece con tu dinero: más premio y más pérdida cuanto más tienes.','new','#ff3b4f']]},
  {v:'2026-10-03-c',t:'Casinetori',items:[['🎰','Ahora se llama Casinetori','Mismo juego, nombre nuevo. Tu partida sigue igual.','new','#ffd600'],['🏠','Casa nueva','La web se muda a avnes235.github.io/casinetori. Desde la antigua te llevas tu partida con un botón, aunque no tengas cuenta.','new','#14e08a'],['📲','Instálala','Ahora la puedes instalar en el móvil como una app desde el menú del navegador.','new','#3f7cff']]},
  {v:'2026-10-03-a',t:'Casinetori',items:[['🎰','Nuevo nombre: Casinetori','Tu partida sigue igual.','new','#ffd600'],['🏆','Torneos','Torneos diarios donde el bote crece con cada jugador, y torneos del jefe con premios gordos. Minijuegos que solo salen en los torneos.','new','#ffd600'],['📈','Trading','Nuevo modo de bolsa realista con tutorial, apalancamiento y 5 dificultades.','new','#14e08a'],['🟦','Dash','Nuevo juego tipo Geometry Dash con cubo, nave y wave.','new','#3f7cff'],['🔥','Hasbirinino','Nueva dificultad por encima de Hasbiri, y también nueva rareza en el Millonario.','new','#ff3b4f'],['🧱','Ladrillos a tope','Multibola, láser, bola de fuego, bombas, combos y ladrillos especiales.','new','#ff2e88'],['🎲','Casino nuevo','Los juegos salen en tarjetas grandes, cada uno explica cómo se juega, y Dados, Keno y Mayor o menor ahora se entienden mejor.','new','#ff4527'],['⚔️','Online más divertido','7 juegos de duelo con animaciones, revancha, avisos de retos y botes, y límites para no perderlo todo.','new','#ff3b4f'],['🎡','Ruletas que cambian','La ruleta gratis va cambiando: caras exclusivas, todo o nada, experiencia, cajas sorpresa… y la puedes saltar.','new','#ff6b4a'],['🧭','Guía','Te explica cada sección la primera vez. Se quita en Ajustes.','new','#3f7cff'],['📺','Revivir con anuncios','Revive en los juegos o duplica el premio, y cada día un anuncio te da una tirada de hasta 10.000 €.','new','#9d5cff'],['✂️','Recortar foto','Al subir tu foto la puedes recortar, y la vista previa del perfil se queda arriba.','new','#ff2e88'],['🛠️','Arreglos','Penaltis: los tiros abajo y en el palo ya cuentan bien y el portero para con todo el cuerpo. El cohete es más difícil y la retirada automática se activa a mano. El botón rojo ya no quita dinero. Puedes borrar tus mensajes guardados. Las ventanas se cierran tocando fuera.','fix','#14e08a']]},
@@ -5208,7 +5240,7 @@ let updShown=false,updLater=0;
 async function checkUpdate(){if(updShown||Date.now()<updLater||!/^https?:/.test(location.protocol))return;
   try{const r=await fetch(location.pathname,{method:'HEAD',cache:'no-store'});if(!r.ok)return;const tag=r.headers.get('etag')||r.headers.get('last-modified')||'';if(!tag)return;
     if(!window.__etag){window.__etag=tag;return}if(tag!==window.__etag){updShown=true;$('#updBar').hidden=false;sfx('coin')}}catch(e){}}
-$('#updGo').addEventListener('click',async()=>{$('#updGo').disabled=true;$('#updGo').textContent='Guardando…';save();try{await Promise.race([cloudSave(true),wait(2500)])}catch(e){}location.reload()});
+$('#updGo').addEventListener('click',()=>hardUpdate($('#updGo')));
 $('#updX').addEventListener('click',()=>{$('#updBar').hidden=true;$('#updMini').hidden=false;setBarH()});
 $('#updMini').addEventListener('click',()=>{$('#updGo').click()});
 setInterval(checkUpdate,600000);setTimeout(checkUpdate,4000);document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')checkUpdate()});
@@ -7108,7 +7140,7 @@ const GD=(()=>{
 const B=40,W=520,H=620,FLOOR=520,CEIL=120,PX=150,DT=1/240,BK=160;
 const T_AIR=.44,JH=86,GRAV=8*JH/(T_AIR*T_AIR),JV=4*JH/T_AIR,VMAXF=1150;
 const HS=17,HI=7,HK=12,SNAP=9,OR=30,BUF=.1;
-const SH_G=1450,SH_UP=1450,SH_VU=380,SH_VD=420,SHW=14,SHH=9,WVH=6,WK=1;
+const SH_G=1000,SH_UP=1150,SH_VU=400,SH_VD=370,SHW=14,SHH=9,WVH=6,WK=1;
 const PADF=1.42,ORBF=.96;
 const MCOL={cube:'#3dff8a',ship:'#ff4fd8',wave:'#3ff0ff'},MHUE={cube:225,ship:292,wave:190};
 const DCFG={
@@ -7149,7 +7181,9 @@ function step(P,hold,Wd,v,used,dt){const x0=P.x;P.x+=v*dt;if(P.buf>0)P.buf-=dt;
     let hw,hh;
     if(P.mode==='ship'){P.vy+=(hold?-SH_UP:SH_G)*dt;P.vy=Math.max(-SH_VU,Math.min(SH_VD,P.vy));hw=SHW;hh=SHH}
     else{P.vy=(hold?-1:1)*v*WK;hw=WVH;hh=WVH}
-    P.y+=P.vy*dt;if(P.y-hh<CEIL){P.y=CEIL+hh;if(P.vy<0&&P.mode==='ship')P.vy=0}if(P.y+hh>FLOOR){P.y=FLOOR-hh;if(P.vy>0&&P.mode==='ship')P.vy=0}
+    const yPrev=P.y;P.y+=P.vy*dt;if(P.y-hh<CEIL){P.y=CEIL+hh;if(P.vy<0&&P.mode==='ship')P.vy=0}if(P.y+hh>FLOOR){P.y=FLOOR-hh;if(P.vy>0&&P.mode==='ship')P.vy=0}
+    if(P.mode==='ship'){const c0=Wd.cor(P.x);if(c0){const j0=Math.max(0,Math.floor((P.x-hw-c0.x0)/c0.st)),j1=Math.min(c0.top.length-1,Math.ceil((P.x+hw-c0.x0)/c0.st));let bm=1e9,tm=-1e9;for(let i=j0;i<=j1;i++){if(c0.bot[i]<bm)bm=c0.bot[i];if(c0.top[i]>tm)tm=c0.top[i]}
+      if(P.y+hh>bm&&yPrev+hh<=bm+4){P.y=bm-hh;if(P.vy>0)P.vy=0}if(P.y-hh<tm&&yPrev-hh>=tm-4){P.y=tm+hh;if(P.vy<0)P.vy=0}}}
     Wd.query(P.x-hw-14,P.x+hw+14,o=>{
       if(o.k==='b'){if(P.x+hw>o.x&&P.x-hw<o.x+o.w&&P.y+hh>o.y&&P.y-hh<o.y+o.h)dead=true}
       else if(o.k==='s'){if(P.x+hw>o.hx0&&P.x-hw<o.hx1&&P.y+hh>o.hy0&&P.y-hh<o.hy1)dead=true}
@@ -7235,16 +7269,15 @@ function gen(seed,D){const R=rng(seed),c=DCFG[D],v=c.v,tolX=v*c.tol,Wd=new World
     for(let i=2;i<n;i+=20)Wd.cps.push({x:x+i*st,y:ys[i],mode:'wave',vy:0,hold:hs[i]});
     Wd.secs.push({m:'wave',x0:x,x1:xe,ys,hs,st});return{y:ys[n-1]}}
   /* --- montar el nivel --- */
-  const total=v*c.T;let x=v*1.7,mode='cube',py=FLOOR-HS,pvy=0;Wd.cps.push({x:0,y:FLOOR-HS,mode:'cube',vy:0});
+  const total=v*c.T;let x=v*1.7,mode='ship',py=(CEIL+FLOOR)/2,pvy=0;Wd.cps.push({x:0,y:py,mode:'ship',vy:0});
   let first=true;
   while(true){const left=total-x;if(left<v*3)break;
     if(mode==='cube'){const dur=first?rr_(7,9):rr_(5.5,8.5);first=false;const xe=x+v*Math.min(dur,left/v);x=cubeSec(x,xe);py=FLOOR-HS;pvy=0}
     else if(mode==='ship'){const dur=rr_(5,7.5),xe=x+v*Math.min(dur,left/v-1);const r=shipSec(x,xe,py,pvy,true);x=xe;py=r.y;pvy=0}
     else{const dur=rr_(4,6.5),xe=x+v*Math.min(dur,left/v-1);const r=waveSec(x,xe,py,true);x=xe;py=r.y}
     if(total-x<v*3)break;
-    const nm=mode==='cube'?(R()<.5?'ship':'wave'):'cube';
-    Wd.portals.push({x,m:nm,y:mode==='cube'?FLOOR-60:clamp(py,CEIL+60,FLOOR-60)});mode=nm;x+=nm==='cube'?B*2:0;Wd.cps.push({x:x+2,y:nm==='cube'?FLOOR-HS:py,mode:nm,vy:0})}
-  if(mode!=='cube'){Wd.portals.push({x,m:'cube',y:FLOOR-60});x+=B*2}
+    const nm=mode==='ship'?'wave':'ship';
+    Wd.portals.push({x,m:nm,y:clamp(py,CEIL+60,FLOOR-60)});mode=nm;Wd.cps.push({x:x+2,y:py,mode:nm,vy:0})}
   Wd.end=x+v*2.2;Wd.total=Wd.end;Wd.cps.sort((a,b)=>a.x-b.x);return Wd}
 /* ---------- música (con el tone() de la app) ---------- */
 const CH=[[110,130.81,164.81],[87.31,110,130.81],[130.81,164.81,196],[98,123.47,146.83]];
@@ -7254,14 +7287,14 @@ function music(s,dt){if(S.muted||!running||s.dead||s.won)return;const bpm=s.c.bp
 /* ---------- el juego ---------- */
 const cache={};
 const dayN=()=>Math.floor((Date.now()-new Date().getTimezoneOffset()*6e4)/864e5);
-function level(D){const seed=(dayN()*977+'fndhx'.indexOf(D)*7919+12345)>>>0,k=D+seed;if(!cache[k])cache[k]=gen(seed,D);return cache[k]}
+function level(D){const seed=(dayN()*977+'fndhx'.indexOf(D)*7919+12345+31)>>>0,k=D+seed;if(!cache[k])cache[k]=gen(seed,D);return cache[k]}
 const Gd={low:[30,'¿ESO ES TODO?','ni al 3 % has llegado, crack'],name:'Dash',w:W,h:H,unit:'Puntos',best:'max',
- hint:'Toca, haz clic o pulsa espacio. Cubo: salta. Nave: mantén para subir. Onda: mantén para subir en diagonal y suelta para bajar. El nivel cambia cada día.',
+ hint:'Mantén pulsado (dedo, clic o espacio) para subir y suelta para bajar. Nave: sube y baja suave y puede ir pegada al suelo o al techo. Onda: va en diagonal. Los pinchos y las paredes te matan. El nivel cambia cada día.',
  reward:s=>Math.round(s*.5),
  endTitle(){return this.won?'¡NIVEL COMPLETADO!':'¡Te has estrellado! '+Math.floor(this.maxP*100)+' %'},
  att:{},
- reset(){const s=this,D=curDiff();s.D=D;s.c=DCFG[D];s.Wd=level(D);s.P=mkP0(0,FLOOR-HS,'cube');s.P.gr=true;s.used=new Set();s.acc=0;s.t=0;s.dead=false;s.won=false;s.maxP=0;s.parts=[];s.trail=[];s.tok=(s.tok||0)+1;
-  s.flash=0;s.fcol='#fff';s.me=-1;s.kh=false;s.ptr=false;s.dt=0;s.rotV=0;s.att[D]=s.att[D]||0;s.started=false;s.hue=MHUE.cube;s.ring=null;s.sc=0;s.counted=false},
+ reset(){const s=this,D=curDiff();s.D=D;s.c=DCFG[D];s.Wd=level(D);s.P=mkP0(0,(CEIL+FLOOR)/2,'ship');s.P.gr=false;s.used=new Set();s.acc=0;s.t=0;s.dead=false;s.won=false;s.maxP=0;s.parts=[];s.trail=[];s.tok=(s.tok||0)+1;
+  s.flash=0;s.fcol='#fff';s.me=-1;s.kh=false;s.ptr=false;s.dt=0;s.rotV=0;s.att[D]=s.att[D]||0;s.started=false;s.hue=MHUE.ship;s.ring=null;s.sc=0;s.counted=false},
  press(){const s=this;if(!running||s.dead||s.won)return;s.P.buf=BUF;if(!s.started){s.started=true}},
  down(){this.ptr=true;this.press()},
  key(k){if(k!==' '&&k!=='up')return;if(this.kh)return;this.kh=true;this.press()},
@@ -7363,7 +7396,7 @@ const Gd={low:[30,'¿ESO ES TODO?','ni al 3 % has llegado, crack'],name:'Dash',w
   if(!running&&!s.dead&&!s.won){c.font='20px "Anton",sans-serif';c.textAlign='center';c.fillStyle='rgba(255,255,255,.75)';c.fillText(diffName(s.D)+' · nivel del día',W/2,60)}}};
 return{Gd,gen,step,mkP0,DCFG,level,W:{B,FLOOR,CEIL,HS,DT,BUF}}})();
 GAMES.dash=GD.Gd;
-COVERS.dash=`<svg viewBox="0 0 200 120"><defs><linearGradient id="gdcv" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a1a7a"/><stop offset="1" stop-color="#0a0c24"/></linearGradient></defs><rect width="200" height="120" fill="url(#gdcv)"/><g stroke="#3ff0ff" stroke-opacity=".18" stroke-width="2" fill="none"><rect x="10" y="10" width="34" height="34"/><rect x="130" y="4" width="34" height="34"/><rect x="74" y="30" width="34" height="34"/></g><path d="M8 70l14-14 14 14 14-14 14 14 14-14" fill="none" stroke="#3ff0ff" stroke-width="6" stroke-opacity=".35" stroke-linejoin="miter"/><path d="M8 70l14-14 14 14 14-14 14 14 14-14" fill="none" stroke="#fff" stroke-width="2.5"/><path d="M92 56l14-6-4 6 4 6z" fill="#3ff0ff" stroke="#000" stroke-width="2"/><rect y="96" width="200" height="24" fill="#090b1d"/><rect y="95" width="200" height="3" fill="#fff"/><rect x="128" y="62" width="34" height="34" fill="#090b1d" stroke="#fff" stroke-width="2.5"/><g fill="#07081a" stroke="#fff" stroke-width="2.5" stroke-linejoin="round"><path d="M96 96l12-22 12 22z"/><path d="M164 96l12-22 12 22z"/></g><g transform="translate(140 30) rotate(18)"><rect x="-14" y="-14" width="28" height="28" fill="#ffd600" stroke="#000" stroke-width="3"/><rect x="-7" y="-7" width="14" height="14" fill="#3ff0ff" stroke="#000" stroke-width="2.5"/></g></svg>`;
+COVERS.dash=`<svg viewBox="0 0 200 120"><rect width="200" height="120" fill="#1c0a4a"/><rect y="60" width="200" height="60" fill="#120734"/><circle cx="158" cy="56" r="34" fill="#ff4fd8" opacity=".18"/><circle cx="158" cy="56" r="20" fill="#ff4fd8" opacity=".22"/><path d="M0 0h200v16h-40v12h-40v-12H70v18H30V16H0z" fill="#07081a"/><path d="M0 16h30v18h40V16h50v12h40V16h40" fill="none" stroke="#3ff0ff" stroke-width="5" stroke-opacity=".35"/><path d="M0 16h30v18h40V16h50v12h40V16h40" fill="none" stroke="#fff" stroke-width="2"/><path d="M0 120V100h50V88h40v12h40V84h40v16h30v20z" fill="#07081a"/><path d="M0 100h50V88h40v12h40V84h40v16h30" fill="none" stroke="#3ff0ff" stroke-width="5" stroke-opacity=".35"/><path d="M0 100h50V88h40v12h40V84h40v16h30" fill="none" stroke="#fff" stroke-width="2"/><g fill="#07081a" stroke="#fff" stroke-width="2" stroke-linejoin="round"><path d="M136 84l7-12 7 12z"/><path d="M78 34l7 11 7-11z"/></g><path d="M6 74l14-14 14 14 14-14 14 14 14-14" fill="none" stroke="#3ff0ff" stroke-width="7" stroke-opacity=".3"/><path d="M6 74l14-14 14 14 14-14 14 14 14-14" fill="none" stroke="#fff" stroke-width="2.5"/><g transform="translate(118 56) rotate(-12)"><path d="M-6 -2l16 6" stroke="#ffd600" stroke-width="0"/><circle cx="-26" cy="4" r="4" fill="#ffd600" opacity=".8"/><circle cx="-34" cy="6" r="3" fill="#ff6b2b" opacity=".7"/><rect x="-6" y="-14" width="12" height="12" fill="#ffd600" stroke="#000" stroke-width="2.5"/><path d="M-22 -2h38l7 8-13 6h-32z" fill="#ff4fd8" stroke="#000" stroke-width="3" stroke-linejoin="round"/><rect x="-15" y="2" width="20" height="3" fill="#fff"/></g></svg>`;
 if(!GLIST.some(g=>g[0]==='dash'))GLIST.splice(0,0,['dash','Dash','#00e5ff']);
 GX_REV.dash=['¡Te has estrellado!','Sigues un poco antes con 2 s de escudo'];
 ACH.push(['🔺','Geometría pura','Completa un nivel de Dash',()=>!!(S.dashDone&&Object.keys(S.dashDone).length)]);
@@ -8430,6 +8463,116 @@ setInterval(()=>{if(view==='trading')try{trLiveBar()}catch(e){}},1000);
 /* ---- auditoría: guardar al salir en el móvil, ventanas limpias ---- */
 document.addEventListener('visibilitychange',()=>{if(document.hidden){try{save()}catch(e){}}});
 (function(){const m=$('#modal');if(!m)return;new MutationObserver(()=>{if(!m.hidden)return;$('#mbox').classList.remove('notes')}).observe(m,{attributes:true,attributeFilter:['hidden']})})();
+
+/* ================= ACTUALIZACIÓN OBLIGATORIA / IMPORTANTE ================= */
+(function(){if(/[?&]v=/.test(location.search)){try{history.replaceState(null,'',location.pathname+location.hash)}catch(e){}}})();
+async function hardUpdate(btn){if(btn){btn.disabled=true;btn.textContent='Guardando tu partida…'}try{save()}catch(e){}try{await Promise.race([cloudSave(true),new Promise(r=>setTimeout(r,2500))])}catch(e){}
+  try{if('caches' in window){const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)))}}catch(e){}
+  location.replace(location.pathname+'?v='+Date.now()+location.hash)}
+let impShown='';
+function showImportant(v,msg){if(impShown===v)return;impShown=v;$('#updBar').hidden=true;
+  let el=$('#impUpd');if(!el){el=document.createElement('div');el.id='impUpd';document.body.appendChild(el)}
+  el.innerHTML=`<div class="impbox" role="alertdialog" aria-modal="true"><div class="impico">⚠️</div><small>Aviso importante</small><h2>Hay que actualizar</h2><p>${esc(msg||'Hemos arreglado un error importante. Actualiza para seguir jugando bien.')}</p><button class="btn big" id="impGo">Actualizar ya</button><span class="impnote">Tu partida se guarda antes. No pierdes nada.</span></div>`;
+  el.hidden=false;sfx('big');try{navigator.vibrate&&navigator.vibrate([90,60,90])}catch(e){}$('#impGo').onclick=()=>hardUpdate($('#impGo'));setTimeout(()=>{try{$('#impGo').focus()}catch(e){}},80)}
+async function checkVersion(){if(!/^https?:/.test(location.protocol)||document.hidden)return;
+  try{const r=await fetch(location.pathname+'?ck='+Date.now(),{cache:'no-store'});if(!r.ok)return;const t=await r.text();
+    const v=(/<meta name="app-version" content="([^"]+)"/.exec(t)||[])[1];if(!v||v<=APP_VER)return;
+    const imp=(/<meta name="app-important" content="([^"]*)"/.exec(t)||[])[1];
+    if(imp)showImportant(v,imp);else if(!updShown){updShown=true;$('#updBar').hidden=false;sfx('coin')}}catch(e){}}
+setTimeout(checkVersion,6000);setInterval(checkVersion,120000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)setTimeout(checkVersion,800)});
+/* el jefe puede obligar a todos a actualizar */
+(function(){const iv=setInterval(()=>{if(!NET.ok||!NET.db)return;clearInterval(iv);
+  NET.db.collection('meta').doc('app').onSnapshot(sn=>{const d=sn.exists?sn.data():null;if(d&&d.v&&String(d.v)>APP_VER)showImportant(String(d.v),d.msg)},()=>{})},1500)})();
+const _rasImp=renderAdmin;renderAdmin=function(){const r=_rasImp.apply(this,arguments);const g=$('#admGlobal');if(g&&!$('#admForce')){g.insertAdjacentHTML('beforeend',`<div class="row" id="admForce"><input class="inp" id="admForceMsg" maxlength="160" placeholder="Mensaje del aviso (opcional)"><button class="btn red" id="admForceGo">⚠️ Avisar a todos: actualizar ya</button></div><p class="netmsg">Primero sube la versión nueva a GitHub y ábrela tú. Luego pulsa aquí: a todos los que tengan una versión anterior les sale el aviso en el centro.</p>`);
+  $('#admForceGo').onclick=async()=>{try{await NET.db.collection('meta').doc('app').set({v:APP_VER,msg:($('#admForceMsg').value||'').trim().slice(0,160)||'Hay una actualización importante. Actualiza para seguir jugando.',t:Date.now()});toast('Aviso enviado','A todos los que no tengan la '+APP_VER+' les sale el aviso','var(--red)','⚠️')}catch(e){toast('No se ha podido','Revisa la conexión','var(--coral)','⚠️')}}}return r};
+
+/* ---- barra de abajo deslizable en el móvil ---- */
+(function(){const nv=$('#nav');if(!nv)return;const upd=()=>nv.classList.toggle('end',nv.scrollLeft+nv.clientWidth>=nv.scrollWidth-4);nv.addEventListener('scroll',upd,{passive:true});addEventListener('resize',upd);setTimeout(upd,500);
+  const show=()=>{if(innerWidth>880)return;const b=nv.querySelector('.nb[aria-current="page"]');if(!b)return;const l=b.offsetLeft,r=l+b.offsetWidth;if(l<nv.scrollLeft+10||r>nv.scrollLeft+nv.clientWidth-30)nv.scrollTo({left:Math.max(0,l-nv.clientWidth/2+b.offsetWidth/2),behavior:'smooth'})};
+  const _goN=go;go=function(v,g){const r=_goN.apply(this,arguments);setTimeout(show,60);return r};setTimeout(show,800)})();
+
+/* ---- el trading cuenta para el casino (ganancias, pérdidas y récords) ---- */
+BWG.trading=['📈','Trading'];CAS2BW.trading='trading';
+const _trCl=trClose;trClose=function(P,px,why){const h=_trCl.apply(this,arguments);try{if(h&&!h.pr){const net=(+h.pnl||0)+(+h.b||0);
+  if(net>0){S.st.casinoWon=(S.st.casinoWon||0)+net;bigWin('trading',Math.floor((+h.m||0)+net),Math.floor(+h.m||0))}else if(net<0)casinoLose(-net,'trading');setTimeout(()=>{try{renderKing()}catch(e){}},50)}}catch(e){}return h};
+
+/* ---- PC: las filas que se deslizan de lado se mueven con rueda, arrastrando y con barra ---- */
+(function(){const fine=matchMedia('(pointer:fine)').matches;
+  const hs=el=>{for(let e=el,i=0;e&&e!==document.body&&i<12;e=e.parentElement,i++){if(e.scrollWidth>e.clientWidth+2){const ox=getComputedStyle(e).overflowX;if(ox==='auto'||ox==='scroll')return e}}return null};
+  document.addEventListener('mouseover',e=>{if(!fine)return;const h=hs(e.target);if(h&&!h.classList.contains('hsx'))h.classList.add('hsx')},{passive:true});
+  document.addEventListener('wheel',e=>{if(e.ctrlKey||Math.abs(e.deltaX)>Math.abs(e.deltaY))return;const h=hs(e.target);if(!h||h.id==='trRoot')return;
+    const max=h.scrollWidth-h.clientWidth;if((e.deltaY>0&&h.scrollLeft>=max-1)||(e.deltaY<0&&h.scrollLeft<=0))return;h.scrollLeft+=e.deltaY;e.preventDefault()},{passive:false});
+  let drag=null;
+  document.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse'||e.button!==0)return;const h=hs(e.target);if(!h)return;drag={h,x:e.clientX,l:h.scrollLeft,moved:false}},true);
+  document.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x;if(!drag.moved&&Math.abs(dx)>6){drag.moved=true;drag.h.classList.add('hsdrag')}if(drag.moved){drag.h.scrollLeft=drag.l-dx;e.preventDefault()}},{passive:false});
+  const end=()=>{if(!drag)return;const d=drag;drag=null;d.h.classList.remove('hsdrag');if(d.moved){const kill=ev=>{ev.stopPropagation();ev.preventDefault()};document.addEventListener('click',kill,{capture:true,once:true});setTimeout(()=>document.removeEventListener('click',kill,true),50)}};
+  document.addEventListener('pointerup',end,true);document.addEventListener('pointercancel',end,true)})();
+
+/* ================= INVITACIONES Y COMPARTIR ================= */
+const REF_ME=50000,REF_NEW=50000,REF_LVL=3,REF_MAX=30;
+function refPrize(k){if(k<1)k=1;const v=100000*Math.pow(1.17,k-1);const r=v>=1e6?Math.round(v/50000)*50000:Math.round(v/10000)*10000;return Math.min(2000000,r)}
+const siteURL=()=>location.origin+location.pathname;
+const refLink=()=>NET.id?siteURL()+'?ref='+encodeURIComponent(NET.id):siteURL();
+/* leer ?ref= al entrar */
+(function(){const m=/[?&]ref=([A-Za-z0-9_-]{10,64})/.exec(location.search);if(!m)return;
+  if(!S.refBy&&!S.refDone&&(S.earned||0)<20000)S.refBy=m[1];try{history.replaceState(null,'',location.pathname+location.hash)}catch(e){}save()})();
+/* el invitado: bienvenida, amistad y premio para quien le invitó cuando llega a nivel 3 */
+function refTick(){if(!S.refBy||S.refDone||!NET.ok||!NET.db||!NET.id||!S.name)return;if(S.refBy===NET.id){S.refBy=null;save();return}
+  if(!S.refWelcome){S.refWelcome=1;S.coins+=REF_NEW;save();const p=NET.players.get(S.refBy);sfx('big');confetti(160);
+    troll('¡BIENVENIDO!','+'+fmt(REF_NEW)+' € por venir invitado'+(p&&p.name?' por '+p.name:''),'#14e08a',true);try{if(!(S.friends||[]).includes(S.refBy))sendReq(S.refBy)}catch(e){}}
+  if((S.lvl||1)>=REF_LVL){S.refDone=1;save();NET.db.collection('cmds/'+S.refBy+'/q').add({type:'gift',from:NET.id,n:REF_ME,ref:1,t:Date.now()}).catch(()=>{S.refDone=0;save()})}}
+setInterval(refTick,5000);setTimeout(refTick,6000);
+/* quien invita: el regalo llega como "gift" con ref:1 */
+const _agRef=applyGifts;applyGifts=function(list){const refs=[],rest=[];list.forEach(x=>(x[1]&&x[1].ref?refs:rest).push(x));
+  if(refs.length){S.cmdDone=S.cmdDone||[];refs.forEach(([id,c])=>{NET.db.collection('cmds/'+NET.id+'/q').doc(id).delete().catch(()=>{});if(S.cmdDone.includes(id))return;S.cmdDone.push(id);
+      S.refN=(S.refN||0)+1;if(S.refN>REF_MAX)return;const n=refPrize(S.refN);S.coins+=n;S.st.refEarned=(S.st.refEarned||0)+n;
+      const who=(NET.players.get(c.from)||{}).name||'Un colega';sfx('big');confetti(220);troll('¡INVITACIÓN Nº '+S.refN+' COBRADA!',who+' ha llegado a nivel '+REF_LVL+' · +'+fmt(n)+' € para ti','#ffd600',true)});save();NET.lastP='';pushPlayer()}
+  if(rest.length)return _agRef(rest)};
+/* compartir: usa el menú del móvil o copia */
+async function shareThing(text,url,file){try{if(file&&navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],text:text+' '+url});return'shared'}
+    if(navigator.share){await navigator.share({title:'Casinetori',text,url});return'shared'}}catch(e){if(e&&e.name==='AbortError')return'abort'}
+  try{await navigator.clipboard.writeText(text+' '+url);toast('Copiado','Pégalo en WhatsApp, Instagram o donde quieras','var(--mint)','📋');return'copied'}catch(e){}
+  prompt('Copia esto:',text+' '+url);return'prompt'}
+function inviteText(){return'Vente a Casinetori, casino y juegos con dinero de mentira. Entra con mi enlace y te llevas '+fmt(REF_NEW)+' € para empezar 🎰'}
+async function shareInvite(){sfx('click');await shareThing(inviteText(),refLink())}
+/* tarjeta de invitar (Inicio y Ranking) */
+function invHTML(){const n=Math.min(S.refN||0,REF_MAX),nx=n+1,steps=[1,2,3,5,10,15,20];
+  return`<div class="panel invcard"><div class="ih"><span class="emo">🎁</span><div><b>Invita a tus colegas</b><small>Tu colega entra con tu enlace y se lleva <em>${fmt(REF_NEW)} €</em>. Cuando llegue a nivel ${REF_LVL}, cobras tú. <b class="inl">Cuantos más traigas, más cobras por cada uno.</b></small></div></div>
+  ${n<REF_MAX?`<div class="invnext"><small>Tu próxima invitación (la nº ${nx}) te da</small><b>${fmt(refPrize(nx))} €</b></div>`:'<div class="invnext"><b>¡Has llegado al máximo!</b></div>'}
+  <div class="invlad">${steps.map(k=>`<span class="${k<=n?'got':k===nx?'nx':''}"><i>${k}º</i>${short(refPrize(k))} €</span>`).join('')}</div>
+  <div class="invlink" data-noi18n>${esc(refLink().replace(/^https?:\/\//,''))}</div><div class="invbtns"><button class="btn mint" data-inv="share">📤 Compartir enlace</button><button class="btn alt" data-inv="copy">📋 Copiar</button></div>
+  <small class="invn">${n?'Has traído a '+n+(n===1?' colega':' colegas')+' · '+fmt(st('refEarned'))+' € cobrados':'Todavía no has invitado a nadie'}${n>=REF_MAX?' · has llegado al máximo de premios':''}</small></div>`}
+function renderInv(){if(!NET.ok)return;const h=$('#v-inicio .funrow');if(h&&!$('#invHome')){h.insertAdjacentHTML('afterend','<div id="invHome"></div>')}const a=$('#invHome');if(a)a.innerHTML=invHTML();
+  const r=$('#v-ranking .addf');if(r&&!$('#invRank')){r.insertAdjacentHTML('afterend','<div id="invRank"></div>')}const b=$('#invRank');if(b)b.innerHTML=invHTML()}
+const _goInv=go;go=function(v,g){const r=_goInv.apply(this,arguments);if(v==='inicio'||v==='ranking')setTimeout(renderInv,30);return r};setTimeout(renderInv,3500);
+document.addEventListener('click',async e=>{const b=e.target.closest('[data-inv]');if(!b)return;if(b.dataset.inv==='share')shareInvite();else{try{await navigator.clipboard.writeText(refLink());toast('Enlace copiado','Pásaselo a tus colegas','var(--mint)','📋')}catch(_){prompt('Copia tu enlace:',refLink())}}});
+
+/* ---- imagen para presumir de un récord ---- */
+function cardImage(o){const c=document.createElement('canvas');c.width=1080;c.height=1350;const g=c.getContext('2d');
+  const bg=g.createLinearGradient(0,0,1080,1350);bg.addColorStop(0,'#2a1170');bg.addColorStop(1,'#0b0d22');g.fillStyle=bg;g.fillRect(0,0,1080,1350);
+  g.globalAlpha=.18;g.fillStyle=o.col||'#ffd600';g.beginPath();g.arc(840,300,320,0,7);g.fill();g.globalAlpha=1;
+  for(let x=-60;x<1140;x+=80){g.fillStyle='#ffd600';g.beginPath();g.moveTo(x,1290);g.lineTo(x+40,1290);g.lineTo(x+80,1350);g.lineTo(x+40,1350);g.fill()}g.fillStyle='#111';g.fillRect(0,1286,1080,4);
+  const F='"Anton","Impact",sans-serif';g.textAlign='center';g.fillStyle='#fff';g.font='900 120px '+F;g.fillText('CASINE',470,190);g.fillStyle='#ffd600';g.fillText('TORI',820,190);
+  g.font='700 54px system-ui,sans-serif';g.fillStyle='#cfd3ff';g.fillText(o.top||'',540,330);
+  g.font='180px serif';g.fillText(o.emo||'🏆',540,580);
+  g.fillStyle=o.col||'#14e08a';let fs=200;g.font='900 '+fs+'px '+F;while(g.measureText(o.big).width>980&&fs>80){fs-=10;g.font='900 '+fs+'px '+F}g.fillText(o.big,540,820);
+  g.fillStyle='#fff';g.font='800 60px system-ui,sans-serif';g.fillText(o.sub||'',540,920);
+  g.fillStyle='rgba(255,255,255,.7)';g.font='700 44px system-ui,sans-serif';g.fillText(o.who?'— '+o.who+' —':'',540,1010);
+  g.fillStyle='#ffd600';{const t_='¿Me superas? '+siteURL().replace(/^https?:\/\//,'').replace(/\/$/,'');let f_=46;g.font='800 '+f_+'px system-ui,sans-serif';while(g.measureText(t_).width>1000&&f_>22){f_-=2;g.font='800 '+f_+'px system-ui,sans-serif'}g.fillText(t_,540,1180)}
+  g.fillStyle='rgba(255,255,255,.55)';g.font='600 30px system-ui,sans-serif';g.fillText('Dinero de mentira · sin apuestas reales',540,1240);
+  return new Promise(r=>c.toBlob(b=>r(b?new File([b],'casinetori.png',{type:'image/png'}):null),'image/png'))}
+async function shareBrag(o){sfx('click');const f=await cardImage({...o,who:S.name});const res=await shareThing(o.text||('Mira lo que he hecho en Casinetori: '+o.big+' '+(o.sub||'')),refLink(),f);
+  if(res==='copied'||res==='prompt'){if(f){const a=document.createElement('a');a.href=URL.createObjectURL(f);a.download='casinetori-record.png';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},2000)}}}
+function bragAsk(o){let el=$('#bragAsk');if(el)el.remove();el=document.createElement('div');el.id='bragAsk';el.className='tipbox brag';
+  el.innerHTML=`<span class="emo">📸</span><span class="tt"><b>${esc(o.title||'¡Récord!')}</b> Compártelo y pica a tus colegas</span><button class="tgo">Compartir</button><button class="tx" aria-label="Cerrar">✕</button>`;document.body.appendChild(el);
+  const close=()=>{el.classList.add('out');setTimeout(()=>el.remove(),300)};el.querySelector('.tx').onclick=close;el.querySelector('.tgo').onclick=()=>{close();shareBrag(o)};setTimeout(close,10000)}
+/* casino: récord personal gordo */
+const _bwBrag=bigWin;bigWin=function(g,win,bet){const cur=(S.bw||{})[g];const better=!cur||win>cur[0];const r=_bwBrag.apply(this,arguments);
+  if(better&&win>=20000&&win>=(bet||0)*3){const G_=BWG[g]||['🎰',g];setTimeout(()=>bragAsk({title:'¡Tu mayor premio en '+G_[1]+'!',emo:G_[0],top:'Mi mayor premio en '+G_[1],big:'+'+fmt(win)+' €',sub:bet?'apostando '+fmt(bet)+' € · x'+(win/bet).toFixed(1).replace('.',','):'',col:'#14e08a'}),1600)}return r};
+/* juegos: botón en la pantalla de récord */
+const _ovBrag=overlay;overlay=function(mode,d){const r=_ovBrag.apply(this,arguments);try{if(mode==='over'&&d&&G&&gid){const ob=$('#over .obtns');if(ob&&!ob.querySelector('[data-brag]')){
+    const sc=G.fmt?G.fmt(d.sc):fmt(d.sc)+' '+String(G.unit||'').toLowerCase();ob.insertAdjacentHTML('afterbegin',`<button class="btn mint" data-brag="1">📸 Compartir</button>`);
+    ob.querySelector('[data-brag]').onclick=()=>shareBrag({emo:'🕹️',top:'Mi partida en '+G.name+' ('+diffName(curDiff())+')',big:String(sc),sub:d.better?'¡Nuevo récord!':'',col:'#3ff0ff'})}}}catch(e){}return r};
 })();
 </script>
 
