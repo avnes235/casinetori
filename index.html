@@ -5,8 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Casinetori · Casino de mentira y juegos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-03-j">
-<meta name="app-important" content="Arreglo importante: el ranking no se actualizaba y había un fallo que duplicaba dinero en el Online. Actualiza para que tu ficha salga bien a todo el mundo.">
+<meta name="app-version" content="2026-10-03-k">
 <link rel="icon" type="image/png" href="favicon.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -4904,6 +4903,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-03-k',t:'Actualizaciones al momento',items:[['🚀','Aviso al momento','Cuando sale una versión nueva te avisa en menos de un minuto, sin recargar, y gastando muy pocos datos.','new','#ffd600']]},
  {v:'2026-10-03-i',t:'Invita y presume',items:[['🎁','Invita a tus colegas','En Inicio y en Ranking tienes tu enlace. Tu colega entra con él y se lleva 50.000 €. Cuando llegue a nivel 3 cobras tú: 100.000 € por el primero, y cada invitación paga más, hasta 2.000.000 € a partir del 20º. Además os hacéis amigos solos.','new','#14e08a'],['📸','Comparte tus récords','Cuando consigues tu mayor premio en el casino o acabas una partida, puedes compartir una imagen chula para picar a tus colegas.','new','#ff2e88']]},
  {v:'2026-10-03-h',t:'Dash nuevo',items:[['🚀','Dash sin cubo','Ahora todo el nivel es nave y onda, con portales entre una y otra.','new','#ff4fd8'],['🪶','Nave más ligera','La nave pesa menos y sube y baja más suave, como en el juego de verdad.','fix','#3ff0ff'],['🧱','Sin muertes tontas','Con la nave puedes ir pegado al suelo, al techo o encima de un bloque plano sin morir. Solo matan los pinchos y chocar de frente con una pared.','fix','#14e08a'],['🎨','Portada nueva','La portada de Dash ahora enseña la nave y la onda.','new','#ffd600']]},
  {v:'2026-10-03-g',t:'Deslizar en el ordenador',items:[['🖱️','Filas deslizables en PC','Las filas que se deslizan de lado (piques del online, retos, fichas, juegos…) ahora se mueven en el ordenador con la rueda del ratón, arrastrando o con su barrita.','fix','#3f7cff']]},
@@ -8474,12 +8474,15 @@ function showImportant(v,msg){if(impShown===v)return;impShown=v;$('#updBar').hid
   let el=$('#impUpd');if(!el){el=document.createElement('div');el.id='impUpd';document.body.appendChild(el)}
   el.innerHTML=`<div class="impbox" role="alertdialog" aria-modal="true"><div class="impico">⚠️</div><small>Aviso importante</small><h2>Hay que actualizar</h2><p>${esc(msg||'Hemos arreglado un error importante. Actualiza para seguir jugando bien.')}</p><button class="btn big" id="impGo">Actualizar ya</button><span class="impnote">Tu partida se guarda antes. No pierdes nada.</span></div>`;
   el.hidden=false;sfx('big');try{navigator.vibrate&&navigator.vibrate([90,60,90])}catch(e){}$('#impGo').onclick=()=>hardUpdate($('#impGo'));setTimeout(()=>{try{$('#impGo').focus()}catch(e){}},80)}
-async function checkVersion(){if(!/^https?:/.test(location.protocol)||document.hidden)return;
-  try{const r=await fetch(location.pathname+'?ck='+Date.now(),{cache:'no-store'});if(!r.ok)return;const t=await r.text();
+let cvFull=false,cvBusy=false,cvSeen='';
+async function checkVersion(){if(!/^https?:/.test(location.protocol)||document.hidden||cvBusy)return;cvBusy=true;
+  try{const r=await fetch(location.pathname+'?ck='+Date.now(),{cache:'no-store',headers:{Range:'bytes=0-4095'}});if(!r.ok&&r.status!==206){cvBusy=false;return}cvFull=r.status===200;
+    let t='';if(r.body&&r.body.getReader){const rd=r.body.getReader(),dec=new TextDecoder();while(t.length<6000){const {done,value}=await rd.read();if(done)break;t+=dec.decode(value,{stream:true});if(/app-important|<\/head>/.test(t)&&t.length>800)break}try{rd.cancel()}catch(e){}}else t=await r.text();
+    cvBusy=false;
     const v=(/<meta name="app-version" content="([^"]+)"/.exec(t)||[])[1];if(!v||v<=APP_VER)return;
     const imp=(/<meta name="app-important" content="([^"]*)"/.exec(t)||[])[1];
-    if(imp)showImportant(v,imp);else if(!updShown){updShown=true;$('#updBar').hidden=false;sfx('coin')}}catch(e){}}
-setTimeout(checkVersion,6000);setInterval(checkVersion,120000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)setTimeout(checkVersion,800)});
+    if(imp)showImportant(v,imp);else if(!updShown){updShown=true;$('#updBar').hidden=false;$('#updMini').hidden=true;try{setBarH()}catch(e){}sfx('coin');if(cvSeen!==v){cvSeen=v;toast('¡Actualización nueva!','Pulsa «Actualizar» arriba para tenerla. No pierdes nada.','var(--sun)','🚀')}}}catch(e){cvBusy=false}}
+setTimeout(checkVersion,5000);(function cvLoop(){setTimeout(()=>{checkVersion().finally(cvLoop)},cvFull?180000:30000)})();window.addEventListener('focus',()=>setTimeout(checkVersion,500));document.addEventListener('visibilitychange',()=>{if(!document.hidden)setTimeout(checkVersion,800)});
 /* el jefe puede obligar a todos a actualizar */
 (function(){const iv=setInterval(()=>{if(!NET.ok||!NET.db)return;clearInterval(iv);
   NET.db.collection('meta').doc('app').onSnapshot(sn=>{const d=sn.exists?sn.data():null;if(d&&d.v&&String(d.v)>APP_VER)showImportant(String(d.v),d.msg)},()=>{})},1500)})();
