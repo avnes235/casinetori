@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Casinetori · Casino de mentira y juegos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-03-s">
+<meta name="app-version" content="2026-10-04-a">
 <link rel="icon" type="image/png" href="favicon.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -8444,7 +8444,9 @@ const _opL=openProfile;openProfile=function(first){if(first&&!S.langAsked&&!(S.c
 const NEW_HOME='https://casinetori.com/';
 const OLD_SITE=/(netlify\.app|github\.io)$/i.test(location.hostname);
 function mvCode(){const a=new Uint8Array(18);crypto.getRandomValues(a);return[...a].map(x=>'abcdefghijkmnpqrstuvwxyz23456789'[x%32]).join('')}
+async function newHomeOk(){try{const r=await fetch(NEW_HOME+'manifest.json?ck='+Date.now(),{cache:'no-store'});if(!r.ok)return false;const j=await r.json();return /casinetori/i.test(String(j.short_name||j.name||''))}catch(e){return false}}
 async function mvGo(){const b=$('#mvGo');if(b){b.disabled=true;b.textContent='Preparando tu partida…'}
+  if(!(await newHomeOk())){if(b){b.disabled=false;b.textContent='Llevarme mi partida'}toast('La web nueva aún no está lista','Sigue jugando aquí, no pierdes nada','var(--sun)','🏗️');const mb=$('#mbox');if(mb)delete mb.dataset.lock;closeModal();return}
   if(!NET.isAnon){location.href=NEW_HOME;return}
   try{if(!NET.ok||!NET.db)throw 0;const id=mvCode();await NET.db.collection('moves').doc(id).set({json:JSON.stringify(S),t:Date.now()});
     try{await NET.db.collection('players').doc(NET.id).delete()}catch(e){}NET.kicked=true;location.href=NEW_HOME+'#mv='+id}
@@ -8463,7 +8465,7 @@ async function mvImport(){const m=/#mv=([a-z0-9]{10,40})/.exec(location.hash);if
     if(!S.name||(+c.earned||0)>=(S.earned||0)){applyCloud(c);if(keepCfg&&keepCfg.lang)S.cfg={...(S.cfg||{}),lang:keepCfg.lang};S.langAsked=true;save();
       try{if(!$('#modal').hidden&&$('#pName'))closeModal()}catch(e){}NET.lastP='';pushPlayer();cloudSave(true);(S.friends||[]).forEach(f=>{if(f&&f!==NET.id)NET.db.collection('freq/'+f+'/acc').doc(NET.id).set({t:Date.now(),sync:1},{merge:true}).catch(()=>{})});sfx('big');confetti(160);troll('¡BIENVENIDO A CASA!','tu partida se ha venido contigo','#14e08a',true)}
     NET.db.collection('moves').doc(id).delete().catch(()=>{})}catch(e){}}
-setTimeout(()=>{if(OLD_SITE){const iv=setInterval(()=>{if(NET.ok||Date.now()-performance.timeOrigin>15000){clearInterval(iv);mvAsk()}},800)}else mvImport()},1500);
+setTimeout(()=>{if(OLD_SITE){const iv=setInterval(async()=>{if(NET.ok||Date.now()-performance.timeOrigin>15000){clearInterval(iv);if(await newHomeOk())mvAsk()}},800)}else mvImport()},1500);
 if('serviceWorker' in navigator&&location.protocol==='https:'&&!OLD_SITE){addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{})})}
 
 /* ================= 2026-10-03-d: trading en el gráfico, teclado, borrar con mantener, ruleta con riesgo ================= */
