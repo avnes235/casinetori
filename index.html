@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Casinetori · Casino de mentira y juegos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-03-r">
+<meta name="app-version" content="2026-10-03-s">
 <link rel="icon" type="image/png" href="favicon.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -1582,7 +1582,8 @@ button:focus-visible,[role="button"]:focus-visible,summary:focus-visible,a:focus
 .tipbox.brag{border-color:var(--mint)}.tipbox.brag .tgo{background:var(--mint)}
 .invnext{display:flex;align-items:baseline;justify-content:space-between;gap:10px;background:color-mix(in srgb,var(--sun) 12%,var(--bg2));border:2px solid var(--sun);border-radius:8px;padding:8px 12px;flex-wrap:wrap}
 .invnext small{color:var(--muted);font-weight:800}.invnext b{font:900 26px var(--f-n);color:var(--sun)}
-.invlad{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}.invlad span{flex:none;display:flex;flex-direction:column;align-items:center;padding:6px 10px;border:2px solid var(--line);border-radius:8px;font:800 12px var(--f-n);color:var(--muted)}
+.invlad{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.rk-top>*,#invRank,.invcard,.invcard>*,.invlad{min-width:0;max-width:100%}.view{max-width:100%;min-width:0}#fx{max-width:100vw}body{overflow-x:clip}.nt-item>span{min-width:0;overflow-wrap:anywhere}.view{overflow-wrap:break-word}.invlad span{flex:none;display:flex;flex-direction:column;align-items:center;padding:6px 10px;border:2px solid var(--line);border-radius:8px;font:800 12px var(--f-n);color:var(--muted)}
 .invlad span i{font-style:normal;font-size:11px;opacity:.8}.invlad span.got{border-color:var(--mint);color:var(--mint)}.invlad span.nx{border-color:var(--sun);color:var(--sun)}
 .invcard .inl{display:inline;font:inherit;color:var(--fg)}
 .wodds{width:100%;max-width:300px;text-align:left;margin-top:4px}.wodds summary{cursor:pointer;font-weight:900;font-size:13px;color:var(--sun);text-align:center;list-style:none}.wodds summary::-webkit-details-marker{display:none}
@@ -4950,6 +4951,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-03-s',t:'Ranking en el móvil',items:[['📱','Se ve bien','Arreglado que en el móvil el Ranking se viera con zoom y más ancho que la pantalla.','fix','#14e08a']]},
  {v:'2026-10-03-q',t:'Sin sustos',items:[['✋','Borrar partida manteniendo','Para borrar tu partida ahora hay que mantener pulsado el botón 3 segundos. Así no se borra nadie la partida sin querer.','fix','#ff3b4f'],['🚀','Dash como antes','La nave y los niveles del Dash vuelven a ser como antes.','fix','#3ff0ff']]},
  {v:'2026-10-03-p',t:'Cosas exclusivas',items:[['👑','Exclusivos del jefe','Títulos, marcos, colores, fondos y caras que no se consiguen jugando: solo los regala el jefe. Para los que están desde el principio hay un pack OG.','new','#b06bff']]},
  {v:'2026-10-03-o',t:'Casinetori.com',items:[['🏠','Web nueva: casinetori.com','Casinetori ya tiene su propia dirección. Si entras por la antigua, pulsa el botón y te llevas tu partida entera, con tus amigos incluidos.','new','#ffd600']]},
