@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Casinetori · Casino de mentira y juegos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-04-a">
+<meta name="app-version" content="2026-10-04-b">
 <link rel="icon" type="image/png" href="favicon.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -1555,6 +1555,7 @@ button:focus-visible,[role="button"]:focus-visible,summary:focus-visible,a:focus
 [data-delacc]{position:relative;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none}
 [data-delacc]::after{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:rgba(255,255,255,.28)}
 [data-delacc].holding::after{width:100%;transition:width 2s linear}
+.wheelcard.wlocked #wheel{filter:grayscale(.75) brightness(.55)}.wlock{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;text-align:center}.wlock div{background:rgba(0,0,0,.78);border:2px solid #ffd600;border-radius:12px;padding:8px 12px;font:900 13px var(--f-b);color:#fff;box-shadow:0 6px 20px rgba(0,0,0,.5)}.wlock b{display:block;font-size:30px;line-height:1}.wlock em{display:block;font:900 18px var(--f-n);color:#ffd600;font-style:normal;margin-top:2px}
 #cfWipe,#wipe{position:relative;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none}#cfWipe::after,#wipe::after{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:rgba(255,255,255,.35)}#cfWipe.holding::after,#wipe.holding::after{width:100%;transition:width 3s linear}#cfWipe.holding,#wipe.holding{animation:wshake .12s linear infinite}@keyframes wshake{25%{transform:translateX(-1px)}75%{transform:translateX(1px)}}
 #v-trading .tr-acct{grid-template-columns:minmax(0,1fr) auto}#v-trading .tr-help{white-space:normal;max-width:45vw}
 #trLiveBar .tlb{min-width:0;overflow:hidden}#trLiveBar .sd{min-width:0;overflow:hidden;text-overflow:ellipsis}@media(max-width:400px){#trLiveBar .pp{display:none}#trLiveBar .tlb{font-size:12px}}
@@ -4951,6 +4952,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-04-b',t:'Ruletas sin trampas',items:[['🔒','El gordo bloqueado se ve','Cuando ganas el millón, la ruleta del todo o nada sigue saliendo, pero con candado y la cuenta atrás de las 3 horas.','new','#ffd600'],['🚫','Sin trucos al recargar','Si recargas mientras gira la ruleta, la tirada cuenta igual (lo bueno y lo malo) y la espera también. Ya no se puede tirar dos veces.','fix','#ff3b4f']]},
  {v:'2026-10-03-s',t:'Ranking en el móvil',items:[['📱','Se ve bien','Arreglado que en el móvil el Ranking se viera con zoom y más ancho que la pantalla.','fix','#14e08a']]},
  {v:'2026-10-03-q',t:'Sin sustos',items:[['✋','Borrar partida manteniendo','Para borrar tu partida ahora hay que mantener pulsado el botón 3 segundos. Así no se borra nadie la partida sin querer.','fix','#ff3b4f'],['🚀','Dash como antes','La nave y los niveles del Dash vuelven a ser como antes.','fix','#3ff0ff']]},
  {v:'2026-10-03-p',t:'Cosas exclusivas',items:[['👑','Exclusivos del jefe','Títulos, marcos, colores, fondos y caras que no se consiguen jugando: solo los regala el jefe. Para los que están desde el principio hay un pack OG.','new','#b06bff']]},
@@ -5919,16 +5921,19 @@ const _cwM=casinoWin;casinoWin=function(n,g,bet){const m=S.casMult&&+S.casMult.u
 const _wbOld=$('#wheelBtn').cloneNode(true);$('#wheelBtn').replaceWith(_wbOld);
 $('#wheelBtn').addEventListener('click',()=>{if(wBusy||Date.now()-S.wheelAt<WAIT)return;wBusy=true;S.wheelAt=Date.now();save();
   const W_=curWheel(),segs=wSegs||wWeigh(W_.id,W_.segs());let r_=Math.random(),k=0;for(;k<segs.length-1;k++){if(r_<segs[k].p)break;r_-=segs[k].p}const SZ=360/segs.length,S0=k*SZ;const target=360-(S0+SZ*(.5+rnd(-.3,.3)));
+  S.wPend={t:W_.t,id:W_.id,p:{lab:segs[k].lab,k:segs[k].k,v:segs[k].v,big:segs[k].big||0},at:Date.now()};save();try{cloudSave(true)}catch(e){}
   wRot=wRot-(wRot%360)+360*6+target;$('#wheel').style.transform=`rotate(${wRot}deg)`;wheelInfo();$('#wheelSkip').disabled=true;
   let tk=0;const iv=setInterval(()=>{sfx('tick');if(++tk>40)clearInterval(iv)},100);
-  setTimeout(()=>{wBusy=false;const p=segs[k];xp(10);
+  setTimeout(()=>{wBusy=false;wResolve(false)},4300)});
+function wResolve(late){const P_=S.wPend;if(!P_)return;delete S.wPend;if(+P_.at<=(+S.wDone||0))return;S.wDone=+P_.at;const p=P_.p,W_={t:P_.t,id:P_.id};xp(10);
+    if(late)toast('Tu tirada de antes','Recargaste mientras giraba: aquí tienes lo que te tocó','var(--sun)','🎡');
     if(p.k==='eur'){give(p.v);sfx(p.big?'big':'win');if(p.big){confetti(320);troll('¡¡'+short(p.v).toUpperCase()+' €!!','te ha tocado el hueco bueno','#ffd600',true);try{jpWin(p.v)}catch(e){}}else toast(W_.t,'+'+short(p.v)+' €','var(--coral)','🎡')}
     else if(p.k==='lose'){const t=Math.min(Math.floor(S.coins),p.v);S.coins-=t;sfx('lose');troll('−'+short(t)+' €','la del todo o nada no perdona','#ff3b4f',true)}
     else if(p.k==='xp'){xp(p.v);sfx('win');toast(W_.t,'+'+p.v+' XP','var(--grape)','⭐')}
     else if(p.k==='face'){S.avWon=S.avWon||[];if(S.avWon.includes(p.v)){const v=1500*wMult();give(v);toast('Esa cara ya la tenías','Te la cambio por '+short(v)+' €','var(--sun)',p.v)}else{S.avWon.push(p.v);sfx('big');confetti(120);toast('¡Cara nueva!','Póntela en tu perfil: '+p.v,'var(--pink)',p.v)}}
     else if(p.k==='box'){const [e,txt]=boxPrize();sfx('big');confetti(90);troll(e+' '+txt,'dentro de la caja sorpresa','#ff2e88',true)}
     else if(p.k==='mult'){S.casMult={v:p.v,until:Date.now()+300000};sfx('big');toast('Casino x'+String(p.v).replace('.',','),'Durante 5 minutos, lo que ganes en el casino se multiplica','var(--sun)','🔥')}
-    save();setTimeout(()=>{wheelNext();wheelInfo();$('#wheelSkip').disabled=false},1600)},4300)});
+    save();try{cloudSave(true)}catch(e){}setTimeout(()=>{wheelNext();wheelInfo();$('#wheelSkip').disabled=false},late?300:1600)}
 $('#wheelSkip').addEventListener('click',()=>{if(wBusy)return;if(Math.floor(S.coins)<1000){toast('No te llega','Saltar la ruleta cuesta 1.000 €','var(--coral)','💸');sfx('lose');return}S.coins-=1000;sfx('coin');toast('Ruleta saltada','−1.000 €','var(--sun)','⏭️');wheelNext();wheelInfo();save()});
 drawWheel();
 const _wiOld=wheelInfo;wheelInfo=function(){_wiOld();const m=S.casMult&&+S.casMult.until>Date.now()?S.casMult:null;const el=$('#wheelInfo');if(el&&m&&!wBusy)el.textContent+=' · Casino x'+String(m.v).replace('.',',')+' activo '+Math.ceil((+m.until-Date.now())/60000)+' min'};
@@ -8656,8 +8661,12 @@ function riskPct(){return 5+5*Math.min(4,S.jpN||0)}
   W.segs=()=>{const {L,J}=RK();return Array.from({length:10},(_,i)=>i===0?{lab:short(J),col:'#ffd600',k:'eur',v:J,big:1}:{lab:'−'+short(L),col:i%2?'#3a0f18':'#561622',k:'lose',v:L})};
   Object.defineProperty(W,'d',{configurable:true,get(){const {L,J}=RK();return'Un solo hueco da '+fmt(J)+' €. Los demás te quitan '+fmt(L)+' € (el '+riskPct()+' % de lo que tienes).'+((S.jpN||0)?' Ya la has ganado '+S.jpN+(S.jpN===1?' vez':' veces')+', así que arriesgas más.':'')}})})();
 const riskLocked=()=>+(S.riskLock||0)>Date.now();
-const _wnJp=wheelNext;wheelNext=function(){_wnJp.apply(this,arguments);if(curWheel().id==='risk'&&riskLocked())_wnJp.apply(this,arguments)};
-if(curWheel().id==='risk'&&riskLocked())try{_wnJp()}catch(e){}
+const _wiLk=wheelInfo;wheelInfo=function(){_wiLk.apply(this,arguments);const card=$('.wheelcard'),wrap=$('.wheelwrap');if(!card||!wrap)return;
+  const lk=curWheel().id==='risk'&&riskLocked()&&!wBusy;card.classList.toggle('wlocked',lk);let o=wrap.querySelector('.wlock');
+  if(!lk){if(o)o.remove();return}const left=Math.max(0,+S.riskLock-Date.now()),s_=Math.ceil(left/1000),hh=Math.floor(s_/3600),mm=Math.floor(s_%3600/60),ss=s_%60,tx=hh+':'+String(mm).padStart(2,'0')+':'+String(ss).padStart(2,'0');
+  if(!o){o=document.createElement('div');o.className='wlock';wrap.appendChild(o)}o.innerHTML=`<div><b>🔒</b>Bloqueada<em>${tx}</em></div>`;
+  const b=$('#wheelBtn');if(b)b.disabled=true;const inf=$('#wheelInfo');if(inf)inf.textContent='Te llevaste el gordo. Vuelve en '+tx+' o salta a otra ruleta.'};
+document.addEventListener('click',e=>{if(e.target.closest('#wheelBtn')&&curWheel().id==='risk'&&riskLocked()){e.stopImmediatePropagation();e.preventDefault();toast('Ruleta bloqueada','Ganaste el gordo: espera a que acabe la cuenta atrás','var(--red)','🔒')}},true);
 /* ---- barra de arriba: quién se ha llevado el gordo ---- */
 let jpSeen=new Set(JSON.parse(localStorage.getItem('jpSeen')||'[]')),jpIdx=0;
 function jpList(){const out=[];const now=Date.now();NET.players.forEach((p,id)=>{if(id===NET.id||ADM.bans.has(id))return;const j=p.jp;if(j&&+j.t>now-24*3600e3)out.push({id,name:p.name,v:+j.v,t:+j.t})});
@@ -8761,6 +8770,12 @@ i18nAdd([['Saltar a otra ruleta · 1.000 € ›','Skip to another wheel · €1
   document.addEventListener('keydown',e=>{const b=document.activeElement;if((e.key==='Enter'||e.key===' ')&&b&&b.matches&&b.matches(SEL)){e.preventDefault();e.stopImmediatePropagation();toast('Mantén pulsado','Con el ratón o el dedo, 3 segundos encima del botón','var(--coral)','✋')}},true);
   new MutationObserver(()=>document.querySelectorAll(SEL).forEach(lab)).observe(document.body,{childList:true,subtree:true});document.querySelectorAll(SEL).forEach(lab)})();
 i18nAdd([['Mantén pulsado 3 s para borrar','Hold 3 s to delete','Maintiens 3 s pour effacer','Mantém 3 s para apagar'],['Mantén pulsado','Hold it down','Maintiens appuyé','Mantém premido'],['Deja el dedo o el ratón 3 segundos encima del botón para borrar','Keep your finger or mouse on the button for 3 seconds to delete','Garde le doigt ou la souris 3 secondes sur le bouton pour effacer','Mantém o dedo ou o rato 3 segundos no botão para apagar']]);
+
+/* ===== 2026-10-04-b: la ruleta no se puede trampear recargando ===== */
+(()=>{const _acbW=applyCloudBase;applyCloudBase=function(c){const wa=+S.wheelAt||0,rl=+S.riskLock||0,wp=S.wPend,jn=S.jpN||0,jp=S.jp,wd=+S.wDone||0;_acbW.apply(this,arguments);S.wDone=Math.max(wd,+S.wDone||0);
+  S.wheelAt=Math.max(wa,+S.wheelAt||0);if(S.wheelAt>Date.now())S.wheelAt=Date.now();S.riskLock=Math.max(rl,+S.riskLock||0);S.jpN=Math.max(jn,S.jpN||0);if(jp&&(!S.jp||+jp.t>+S.jp.t))S.jp=jp;if(wp&&!S.wPend)S.wPend=wp;if(S.wPend&&+S.wPend.at<=S.wDone)delete S.wPend};
+  const tryRes=()=>{if(S.wPend&&!wBusy){try{wResolve(true)}catch(e){}}};setTimeout(tryRes,2500);setTimeout(tryRes,9000)})();
+i18nAdd([['Bloqueada','Locked','Bloquée','Bloqueada'],['Tu tirada de antes','Your earlier spin','Ton tour d\'avant','A tua jogada de antes'],['Recargaste mientras giraba: aquí tienes lo que te tocó','You reloaded while it was spinning: here is what you got','Tu as rechargé pendant que ça tournait : voici ce que tu as gagné','Recarregaste enquanto girava: aqui tens o que te saiu']]);
 })();
 </script>
 
