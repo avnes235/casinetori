@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://avnes235.github.io/casinetori/sitemap.xml
