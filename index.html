@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Casinetori · Casino de mentira y juegos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-03-l">
+<meta name="app-version" content="2026-10-03-n">
 <link rel="icon" type="image/png" href="favicon.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -1587,6 +1587,17 @@ button:focus-visible,[role="button"]:focus-visible,summary:focus-visible,a:focus
 .wodds{width:100%;max-width:300px;text-align:left;margin-top:4px}.wodds summary{cursor:pointer;font-weight:900;font-size:13px;color:var(--sun);text-align:center;list-style:none}.wodds summary::-webkit-details-marker{display:none}
 .wol{display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;margin:8px 0 4px}.wol div{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700}.wol .sw{width:12px;height:12px;border-radius:3px;flex:none}.wol b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.wol em{font-style:normal;font:800 12px var(--f-n);color:var(--muted)}
 .wodds small{display:block;font-size:11px;color:var(--muted);text-align:center}
+#impUpd{position:fixed;inset:auto;left:50%;transform:translateX(-50%);top:calc(10px + env(safe-area-inset-top,0px));z-index:9999;width:min(560px,calc(100vw - 20px));display:block;background:none;backdrop-filter:none;padding:0}
+#impUpd .impbar{display:flex;align-items:center;gap:10px;background:#2a0d14;border:2px solid var(--red);border-radius:12px;padding:8px 8px 8px 12px;box-shadow:0 12px 30px rgba(0,0,0,.5);animation:tipin .3s ease-out}
+#impUpd .impico{font-size:24px}#impUpd .imptx{flex:1;min-width:0}#impUpd .imptx b{display:block;font-size:14px;color:#ff8a96}#impUpd .imptx small{display:block;font-size:12px;font-weight:700;color:var(--muted);line-height:1.3}
+#impUpd .impx{background:none;border:0;color:var(--muted);font-size:16px;cursor:pointer;padding:4px}
+.legalf{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 16px;margin:28px 0 8px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08);font-size:12px;font-weight:700}.legalf a{color:var(--muted);text-decoration:none}.legalf a:hover{color:var(--sun)}.legalf small{flex-basis:100%;text-align:center;color:var(--muted);opacity:.6;font-size:11px}
+#impUpd .impbar .btn{flex:none;width:auto;margin:0;padding:8px 12px;font-size:12px;min-height:0;line-height:1}#impUpd .imptx small{letter-spacing:0;text-transform:none;font:700 12px var(--f-b);color:var(--muted);overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}#impUpd .impico{animation:none}
+#jpBar{display:flex;align-items:center;gap:10px;margin:0 0 12px;padding:8px 10px;border:2px solid #ffd600;border-radius:10px;background:linear-gradient(90deg,rgba(255,214,0,.18),rgba(255,214,0,.04));font-weight:700;font-size:14px;animation:jpglow 2s ease-in-out infinite}
+#jpBar[hidden]{display:none}#jpBar .jpi{font-size:22px}#jpBar .jpt{flex:1;min-width:0}#jpBar em{font-style:normal;color:#ffd600;font-weight:900}#jpBar .jpn{font:800 11px var(--f-n);color:var(--muted)}
+#jpBar .jpgo{background:#ffd600;color:#111;border:0;border-radius:6px;padding:6px 10px;font-weight:900;font-size:12px;cursor:pointer;white-space:nowrap}#jpBar .jpx{background:none;border:0;color:var(--muted);cursor:pointer;font-size:15px}
+@keyframes jpglow{50%{box-shadow:0 0 18px rgba(255,214,0,.35)}}
+@media (max-width:520px){#jpBar{font-size:12px}#jpBar .jpgo{display:none}}
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2869,7 +2880,7 @@ html[data-fit="s"]{zoom:.88}html[data-fit="x"]{zoom:.76}
           <h3 id="wheelTitle">Ruleta gratis</h3><p class="wdesc" id="wheelDesc"></p>
           <div class="wheelwrap"><span class="ptr"></span><canvas id="wheel" width="400" height="400"></canvas></div>
           <button class="btn coral" id="wheelBtn">Girar gratis</button>
-          <button class="linkb wskip" id="wheelSkip">Saltar a otra ruleta ›</button>
+          <button class="linkb wskip" id="wheelSkip">Saltar a otra ruleta · 1.000 € ›</button>
           <small class="muted" id="wheelInfo"></small>
         </div>
         <div class="panel missions">
@@ -4200,8 +4211,14 @@ async function initNet(){
     try{const ad=await db.collection('admins').doc(id).get();if(ad.exists){ADM.on=true;$('#navAdmin').hidden=false;$('#bossBtn').textContent='Ir al panel del jefe'}}catch(e){}
     db.collection('players').orderBy('coins','desc').limit(300).onSnapshot(sn=>{NET.players=new Map(sn.docs.filter(d=>d.exists).map(d=>[d.id,normP(d.data())]));onPlayers()},()=>{NET.ok=false;NET.why='Se ha cortado la conexión con el ranking. Recarga la página.';renderRank()});
     db.collection('freq/'+id+'/q').onSnapshot(sn=>{NET.inReq=sn.docs.filter(d=>d.exists).map(d=>({...d.data(),id:d.id}));NET.inReqN=NET.inReq.length;handleReqs();renderReqs()},()=>{});
-    db.collection('freq/'+id+'/acc').onSnapshot(sn=>{sn.docs.forEach(d=>{if(!d.exists)return;const fid=d.id;S.friends=S.friends||[];if(!S.friends.includes(fid)){S.friends.push(fid);const pp=NET.players.get(fid);toast('Solicitud aceptada',esc(pp?pp.name:'Tu colega')+' ya es tu amigo','var(--mint)','🤝');sfx('buy')}
-      S.outReq=(S.outReq||[]).filter(x=>x!==fid);db.collection('freq/'+id+'/acc').doc(fid).delete().catch(()=>{});save();NET.rank=null;renderRank();renderReqs()})},()=>{});
+    db.collection('freq/'+id+'/acc').onSnapshot(sn=>{let ch=false;NET.accIds=NET.accIds||new Set();sn.docChanges().forEach(x=>{const fid=x.doc.id;S.friends=S.friends||[];
+      if(x.type==='removed'){NET.accIds.delete(fid);if(S.friends.includes(fid)){S.friends=S.friends.filter(y=>y!==fid);ch=true}return}
+      const dd=x.doc.data()||{};if(dd.sync&&(S.unfr||[]).includes(fid))return;NET.accIds.add(fid);
+      if(!dd.sync)S.unfr=(S.unfr||[]).filter(y=>y!==fid);
+      if(!S.friends.includes(fid)){S.friends.push(fid);ch=true;if(!dd.sync){const pp=NET.players.get(fid);toast('Solicitud aceptada',esc(pp?pp.name:'Tu colega')+' ya es tu amigo','var(--mint)','🤝');sfx('buy')}}
+      if((S.outReq||[]).includes(fid)){S.outReq=S.outReq.filter(y=>y!==fid);ch=true}
+      if(x.type==='added')db.collection('freq/'+fid+'/acc').doc(id).set({t:Date.now(),sync:1},{merge:true}).catch(()=>{})});
+      if(ch){save();NET.rank=null;renderRank();renderReqs()}},()=>{});
     db.collection('cmds/'+id+'/q').onSnapshot(sn=>{const gifts=[];sn.docs.forEach(d=>{if(!d.exists)return;const c=d.data()||{};if(c.type==='gift')gifts.push([d.id,c]);else queueCmd(d.id,c)});if(gifts.length)applyGifts(gifts)},()=>{});
     db.collection('meta').doc('bans').onSnapshot(sn=>{ADM.bans=new Set((sn.exists&&(sn.data()||{}).ids)||[]);NET.rank=null;onPlayers()},()=>{});
     db.collection('meta').doc('event').onSnapshot(sn=>{const before=evMult();NET.event=sn.exists?sn.data():null;renderEvent();const m=evMult();
@@ -4532,7 +4549,7 @@ function bestPub(){const o={};Object.keys(S.best||{}).forEach(k=>{if(k.includes(
 function normP(d){if(d&&Array.isArray(d.own))d.own=d.own.map(o=>Array.isArray(o)?o:o&&typeof o==='object'?[o.e,o.n,o.q,o.p]:o);return d}
 async function pushPlayer(){if(!NET.ok||!NET.id||!S.name||NET.kicked)return;if(NET.busyP){NET.pushAgain=true;return}const c=myCos();
   const body={name:S.name.slice(0,14),av:S.av||'😎',code:S.code||'',coins:Math.floor(S.coins),earned:Math.floor(S.earned),lvl:S.lvl,ach:S.ach.length,spent:ownedValue(),col:ownedValue(),cheat:S.strikes||0,
-    pt:Math.floor(S.playtime||0),cw:st('casinoWon'),clk:st('clicks'),best:bestPub(),cos:{c:c.c,f:c.f,bg:c.bg},img:S.img||'',ti:tiText(),show:cfg('showVit')?showList().map(i=>P[i][0]):[],own:cfg('showVit')?ownPub().map(o=>({e:o[0],n:o[1],q:o[2],p:o[3]})):[],achL:(S.ach||[]).slice(0,80),since:S.since||Date.now(),bw:S.bw||{},gm:st('games'),sp:st('spins'),wn:st('wins'),ord:S.orders||0,gf:st('gifts'),trs:st('sent'),pr:st('pranks'),gold:st('golden'),strk:(S.daily||{}).streak||0,at:curAt(),bl:S.bl||{},cl:st('casinoLost'),blv:bestLvPub()};
+    pt:Math.floor(S.playtime||0),cw:st('casinoWon'),clk:st('clicks'),best:bestPub(),cos:{c:c.c,f:c.f,bg:c.bg},img:S.img||'',ti:tiText(),show:cfg('showVit')?showList().map(i=>P[i][0]):[],own:cfg('showVit')?ownPub().map(o=>({e:o[0],n:o[1],q:o[2],p:o[3]})):[],achL:(S.ach||[]).slice(0,80),since:S.since||Date.now(),bw:S.bw||{},gm:st('games'),sp:st('spins'),wn:st('wins'),ord:S.orders||0,gf:st('gifts'),trs:st('sent'),pr:st('pranks'),gold:st('golden'),strk:(S.daily||{}).streak||0,at:curAt(),bl:S.bl||{},cl:st('casinoLost'),blv:bestLvPub(),jp:S.jp||null};
   const j=JSON.stringify({...body,pt:0});if(j===NET.lastP&&Date.now()-(NET.lastT||0)<60000)return;
   NET.busyP=true;try{await NET.db.collection('players').doc(NET.id).set({...body,t:Date.now()});NET.lastP=j;NET.lastT=Date.now()}
   catch(e){NET.pushErr=String(e&&e.message||e);try{console.warn('pushPlayer',e)}catch(_){}if(e&&e.code==='permission-denied'){NET.ro=true;NET.why='La base de datos no deja guardar. Revisa las reglas de Firebase.';renderRank()}}NET.busyP=false;if(NET.pushAgain){NET.pushAgain=false;setTimeout(pushPlayer,250)}}
@@ -4586,7 +4603,7 @@ async function sendReq(id){if(!NET.ok||!id||id===NET.id)return;S.friends=S.frien
   try{await NET.db.collection('freq/'+id+'/q').doc(NET.id).set({from:NET.id,name:S.name||'Alguien',av:S.av||'😎',img:S.img||'',t:Date.now()});S.outReq=[...new Set([...(S.outReq||[]),id])];save();
     $('#fMsg').textContent='Solicitud enviada a '+(p.name||'tu colega')+'. Tiene que aceptarla.';sfx('coin');renderRank();renderReqs()}
   catch(e){$('#fMsg').textContent='No se ha podido enviar. Revisa la conexión.';sfx('lose')}}
-async function acceptReq(id){S.friends=S.friends||[];if(!S.friends.includes(id))S.friends.push(id);S.outReq=(S.outReq||[]).filter(x=>x!==id);
+async function acceptReq(id){S.friends=S.friends||[];S.unfr=(S.unfr||[]).filter(x=>x!==id);if(!S.friends.includes(id))S.friends.push(id);S.outReq=(S.outReq||[]).filter(x=>x!==id);
   const r=(NET.inReq||[]).find(x=>x.id===id)||{};NET.inReq=(NET.inReq||[]).filter(x=>x.id!==id);NET.inReqN=NET.inReq.length;save();
   try{await NET.db.collection('freq/'+id+'/acc').doc(NET.id).set({t:Date.now()})}catch(e){}NET.db.collection('freq/'+NET.id+'/q').doc(id).delete().catch(()=>{});
   toast('Nuevo amigo',esc(r.name||'Tu colega'),'var(--mint)','🤝');sfx('buy');confetti(60);NET.rank=null;renderRank();renderReqs()}
@@ -4906,6 +4923,8 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-03-n',t:'Más control',items:[['🚀','Dash más rápido de reflejos','La nave y la wave responden al instante: en cuanto pulsas, sube; en cuanto sueltas, baja.','fix','#3ff0ff'],['🐍','Snake perdona','En Fácil y Normal, justo antes de chocar con la pared o contigo mismo hay un instante para girar, como en el original.','new','#14e08a'],['🤝','Amigos que no se van','Tus amigos ya no desaparecen al jugar en otro móvil u ordenador.','fix','#ff4fd8'],['📈','Trading en Real','Al entrar en Trading empiezas directamente en tu dinero de verdad.','fix','#ffd600']]},
+ {v:'2026-10-03-m',t:'El gordo del todo o nada',items:[['💰','Se ve quién se lo lleva','Cuando alguien gana el premio gordo de la ruleta del todo o nada, sale arriba para todos durante 24 horas.','new','#ffd600'],['🔒','Más riesgo para los que ganan','Si te toca el gordo, esa ruleta se bloquea 3 horas y la próxima vez arriesgas más: un 5 % más de tu dinero por cada vez que la hayas ganado.','new','#ff3b4f'],['⏭️','Saltar ruleta','Saltar a otra ruleta ahora cuesta 1.000 €.','new','#ff6b4a'],['🎡','Ruletas más bonitas','Los huecos vuelven a ser iguales; las probabilidades se ven en el desplegable de abajo.','fix','#3f7cff'],['⚠️','Aviso sin cortar el juego','El aviso de actualización importante ya no tapa la pantalla: sale arriba y actualizas cuando quieras.','fix','#14e08a']]},
  {v:'2026-10-03-l',t:'Ruletas con probabilidades',items:[['🎲','Probabilidades','Las ruletas de Inicio ya no tienen todos los huecos iguales: los premios gordos tienen el hueco más pequeño. Debajo de la ruleta puedes ver la probabilidad exacta de cada premio.','new','#ff6b4a']]},
  {v:'2026-10-03-k',t:'Actualizaciones al momento',items:[['🚀','Aviso al momento','Cuando sale una versión nueva te avisa en menos de un minuto, sin recargar, y gastando muy pocos datos.','new','#ffd600']]},
  {v:'2026-10-03-i',t:'Invita y presume',items:[['🎁','Invita a tus colegas','En Inicio y en Ranking tienes tu enlace. Tu colega entra con él y se lleva 50.000 €. Cuando llegue a nivel 3 cobras tú: 100.000 € por el primero, y cada invitación paga más, hasta 2.000.000 € a partir del 20º. Además os hacéis amigos solos.','new','#14e08a'],['📸','Comparte tus récords','Cuando consigues tu mayor premio en el casino o acabas una partida, puedes compartir una imagen chula para picar a tus colegas.','new','#ff2e88']]},
@@ -5391,7 +5410,7 @@ function askNick(id){const p=NET.players.get(id)||{};const cur=(S.nick||{})[id]|
 function askUnfriend(id){const p=NET.players.get(id)||{};$('#modal').hidden=false;const mb=$('#mbox');mb.classList.remove('wide','notes');mb.onclick=null;
   mb.innerHTML=`<h2 style="font-size:28px">¿Quitar a ${esc(dn({...p,id}))} de tus amigos?</h2><p class="muted" style="font-weight:700">Ya no podrás regalarle dinero y desaparece de «Mis amigos». Si quieres volver a ser su amigo, tendrás que mandarle otra solicitud.</p>
    <div class="form"><button class="btn big red" id="ufGo">Sí, quitar amigo</button><button class="btn alt" id="ufX">No, dejarlo</button></div>`;
-  $('#ufGo').onclick=()=>{S.friends=(S.friends||[]).filter(x=>x!==id);save();closeModal();NET.rank=null;renderRank();sfx('click');toast('Amigo quitado',esc(dn({...p,id})),'var(--coral)','👋')};$('#ufX').onclick=closeModal}
+  $('#ufGo').onclick=()=>{S.friends=(S.friends||[]).filter(x=>x!==id);S.unfr=[...new Set([...(S.unfr||[]),id])];if(NET.db&&NET.id){NET.db.collection('freq/'+NET.id+'/acc').doc(id).delete().catch(()=>{});NET.db.collection('freq/'+id+'/acc').doc(NET.id).delete().catch(()=>{})}save();closeModal();NET.rank=null;renderRank();sfx('click');toast('Amigo quitado',esc(dn({...p,id})),'var(--coral)','👋')};$('#ufX').onclick=closeModal}
 
 /* ---- Qué está haciendo cada uno ---- */
 const AT_V={inicio:'En el inicio',rico:'En el Millonario',fabrica:'En la fábrica',casino:'En el casino',arcade:'En Juegos',ranking:'Mirando el ranking',logros:'Mirando logros',online:'En apuestas online',ayuda:'En la ayuda',ajustes:'En ajustes',perfil:'Personalizando el perfil',admin:'En el inicio'};
@@ -5849,9 +5868,9 @@ const curWheel=()=>WHEELS[((S.wheelIdx||0)%WHEELS.length+WHEELS.length)%WHEELS.l
 let wSegs=null;
 drawWheel=function(){const c=$('#wheel');if(!c)return;const W_=curWheel();wSegs=wWeigh(W_.id,W_.segs());const g=c.getContext('2d'),n=wSegs.length,R=190;g.clearRect(0,0,400,400);
   g.fillStyle='#141a2e';g.beginPath();g.arc(200,200,198,0,7);g.fill();
-  wSegs.forEach((p,i)=>{const a0=p.a0*Math.PI*2-Math.PI/2,seg=p.p*Math.PI*2;g.beginPath();g.moveTo(200,200);g.arc(200,200,R-6,a0,a0+seg);g.closePath();g.fillStyle=p.col;g.fill();
+  wSegs.forEach((p,i)=>{const seg=Math.PI*2/n,a0=i*seg-Math.PI/2;g.beginPath();g.moveTo(200,200);g.arc(200,200,R-6,a0,a0+seg);g.closePath();g.fillStyle=p.col;g.fill();
     g.save();g.translate(200,200);g.rotate(a0+seg/2);g.fillStyle=p.k==='lose'?'#ff8a96':'#141a2e';const fs=Math.max(14,Math.min(p.emo?40:32,Math.round(seg*R*.62)));g.font=fs+'px '+(p.emo?'sans-serif':'"Anton",sans-serif');g.textAlign='right';g.textBaseline='middle';g.fillText(p.lab,R-20,0);g.restore()});
-  for(let i=0;i<n;i++){const a=wSegs[i].a0*Math.PI*2-Math.PI/2;g.strokeStyle='#141a2e';g.lineWidth=5;g.beginPath();g.moveTo(200,200);g.lineTo(200+Math.cos(a)*(R-6),200+Math.sin(a)*(R-6));g.stroke();
+  for(let i=0;i<n;i++){const a=i*Math.PI*2/n-Math.PI/2;g.strokeStyle='#141a2e';g.lineWidth=5;g.beginPath();g.moveTo(200,200);g.lineTo(200+Math.cos(a)*(R-6),200+Math.sin(a)*(R-6));g.stroke();
     g.fillStyle='#fff';g.beginPath();g.arc(200+Math.cos(a)*(R+1),200+Math.sin(a)*(R+1),5,0,7);g.fill()}
   g.fillStyle='#141a2e';g.beginPath();g.arc(200,200,34,0,7);g.fill();g.fillStyle='#ffc23d';g.beginPath();g.arc(200,200,24,0,7);g.fill();
   const t=$('#wheelTitle'),d=$('#wheelDesc');if(t)t.textContent=W_.t;if(d)d.textContent=W_.d;const card=c.closest('.wheelcard');if(card)card.dataset.w=W_.id};
@@ -5867,18 +5886,18 @@ function boxPrize(){const r=Math.random(),m=wMult();
 const _cwM=casinoWin;casinoWin=function(n,g,bet){const m=S.casMult&&+S.casMult.until>Date.now()?+S.casMult.v:1;if(m>1&&n>(bet||0)){const extra=Math.floor((n-(bet||0))*(m-1));if(extra>0){give(extra);toast('Multiplicador x'+String(m).replace('.',','),'+'+short(extra)+' € extra','var(--sun)','🔥')}}_cwM(n,g,bet)};
 const _wbOld=$('#wheelBtn').cloneNode(true);$('#wheelBtn').replaceWith(_wbOld);
 $('#wheelBtn').addEventListener('click',()=>{if(wBusy||Date.now()-S.wheelAt<WAIT)return;wBusy=true;S.wheelAt=Date.now();save();
-  const W_=curWheel(),segs=wSegs||wWeigh(W_.id,W_.segs());let r_=Math.random(),k=0;for(;k<segs.length-1;k++){if(r_<segs[k].p)break;r_-=segs[k].p}const S0=segs[k].a0*360,SZ=segs[k].p*360;const target=360-(S0+SZ*(.5+rnd(-.3,.3)));
+  const W_=curWheel(),segs=wSegs||wWeigh(W_.id,W_.segs());let r_=Math.random(),k=0;for(;k<segs.length-1;k++){if(r_<segs[k].p)break;r_-=segs[k].p}const SZ=360/segs.length,S0=k*SZ;const target=360-(S0+SZ*(.5+rnd(-.3,.3)));
   wRot=wRot-(wRot%360)+360*6+target;$('#wheel').style.transform=`rotate(${wRot}deg)`;wheelInfo();$('#wheelSkip').disabled=true;
   let tk=0;const iv=setInterval(()=>{sfx('tick');if(++tk>40)clearInterval(iv)},100);
   setTimeout(()=>{wBusy=false;const p=segs[k];xp(10);
-    if(p.k==='eur'){give(p.v);sfx(p.big?'big':'win');if(p.big){confetti(320);troll('¡¡UN MILLÓN!!','te ha tocado el hueco bueno','#ffd600',true)}else toast(W_.t,'+'+short(p.v)+' €','var(--coral)','🎡')}
+    if(p.k==='eur'){give(p.v);sfx(p.big?'big':'win');if(p.big){confetti(320);troll('¡¡'+short(p.v).toUpperCase()+' €!!','te ha tocado el hueco bueno','#ffd600',true);try{jpWin(p.v)}catch(e){}}else toast(W_.t,'+'+short(p.v)+' €','var(--coral)','🎡')}
     else if(p.k==='lose'){const t=Math.min(Math.floor(S.coins),p.v);S.coins-=t;sfx('lose');troll('−'+short(t)+' €','la del todo o nada no perdona','#ff3b4f',true)}
     else if(p.k==='xp'){xp(p.v);sfx('win');toast(W_.t,'+'+p.v+' XP','var(--grape)','⭐')}
     else if(p.k==='face'){S.avWon=S.avWon||[];if(S.avWon.includes(p.v)){const v=1500*wMult();give(v);toast('Esa cara ya la tenías','Te la cambio por '+short(v)+' €','var(--sun)',p.v)}else{S.avWon.push(p.v);sfx('big');confetti(120);toast('¡Cara nueva!','Póntela en tu perfil: '+p.v,'var(--pink)',p.v)}}
     else if(p.k==='box'){const [e,txt]=boxPrize();sfx('big');confetti(90);troll(e+' '+txt,'dentro de la caja sorpresa','#ff2e88',true)}
     else if(p.k==='mult'){S.casMult={v:p.v,until:Date.now()+300000};sfx('big');toast('Casino x'+String(p.v).replace('.',','),'Durante 5 minutos, lo que ganes en el casino se multiplica','var(--sun)','🔥')}
     save();setTimeout(()=>{wheelNext();wheelInfo();$('#wheelSkip').disabled=false},1600)},4300)});
-$('#wheelSkip').addEventListener('click',()=>{if(wBusy)return;sfx('click');wheelNext();wheelInfo()});
+$('#wheelSkip').addEventListener('click',()=>{if(wBusy)return;if(Math.floor(S.coins)<1000){toast('No te llega','Saltar la ruleta cuesta 1.000 €','var(--coral)','💸');sfx('lose');return}S.coins-=1000;sfx('coin');toast('Ruleta saltada','−1.000 €','var(--sun)','⏭️');wheelNext();wheelInfo();save()});
 drawWheel();
 const _wiOld=wheelInfo;wheelInfo=function(){_wiOld();const m=S.casMult&&+S.casMult.until>Date.now()?S.casMult:null;const el=$('#wheelInfo');if(el&&m&&!wBusy)el.textContent+=' · Casino x'+String(m.v).replace('.',',')+' activo '+Math.ceil((+m.until-Date.now())/60000)+' min'};
 
@@ -7144,7 +7163,7 @@ const GD=(()=>{
 const B=40,W=520,H=620,FLOOR=520,CEIL=120,PX=150,DT=1/240,BK=160;
 const T_AIR=.44,JH=86,GRAV=8*JH/(T_AIR*T_AIR),JV=4*JH/T_AIR,VMAXF=1150;
 const HS=17,HI=7,HK=12,SNAP=9,OR=30,BUF=.1;
-const SH_G=1000,SH_UP=1150,SH_VU=400,SH_VD=370,SHW=14,SHH=9,WVH=6,WK=1;
+const SH_G=1100,SH_UP=1700,shA=(h,vy)=>h?(vy>0?-SH_UP*3.2:-SH_UP):(vy<0?SH_G*3.2:SH_G),SH_VU=400,SH_VD=370,SHW=14,SHH=9,WVH=6,WK=1;
 const PADF=1.42,ORBF=.96;
 const MCOL={cube:'#3dff8a',ship:'#ff4fd8',wave:'#3ff0ff'},MHUE={cube:225,ship:292,wave:190};
 const DCFG={
@@ -7183,7 +7202,7 @@ function step(P,hold,Wd,v,used,dt){const x0=P.x;P.x+=v*dt;if(P.buf>0)P.buf-=dt;
       else if(o.k==='g'){if(!used.has(o)&&Math.hypot(o.x-P.x,o.y-P.y)<30){used.add(o);P.gems++;(P.ev=P.ev||[]).push(['gem',o])}}});
   }else{
     let hw,hh;
-    if(P.mode==='ship'){P.vy+=(hold?-SH_UP:SH_G)*dt;P.vy=Math.max(-SH_VU,Math.min(SH_VD,P.vy));hw=SHW;hh=SHH}
+    if(P.mode==='ship'){P.vy+=shA(hold,P.vy)*dt;P.vy=Math.max(-SH_VU,Math.min(SH_VD,P.vy));hw=SHW;hh=SHH}
     else{P.vy=(hold?-1:1)*v*WK;hw=WVH;hh=WVH}
     const yPrev=P.y;P.y+=P.vy*dt;if(P.y-hh<CEIL){P.y=CEIL+hh;if(P.vy<0&&P.mode==='ship')P.vy=0}if(P.y+hh>FLOOR){P.y=FLOOR-hh;if(P.vy>0&&P.mode==='ship')P.vy=0}
     if(P.mode==='ship'){const c0=Wd.cor(P.x);if(c0){const j0=Math.max(0,Math.floor((P.x-hw-c0.x0)/c0.st)),j1=Math.min(c0.top.length-1,Math.ceil((P.x+hw-c0.x0)/c0.st));let bm=1e9,tm=-1e9;for(let i=j0;i<=j1;i++){if(c0.bot[i]<bm)bm=c0.bot[i];if(c0.top[i]>tm)tm=c0.top[i]}
@@ -7246,7 +7265,7 @@ function gen(seed,D){const R=rng(seed),c=DCFG[D],v=c.v,tolX=v*c.tol,Wd=new World
     const m_=Math.ceil(st/(v*DT)),dd=st/v/m_;for(let i=0,px=x;i<n;i++){ys[i]=y;hs[i]=hold?1:0;for(let s=0;s<m_;s++){const cx_=px+s*v*dd;tc-=dd;lk-=dd;
         if(cx_>tEnd){tg=last?FLOOR-SHH-24:clamp(y,CEIL+70,FLOOR-70)}else if(tc<=0){tg=rr_(CEIL+40,FLOOR-40);tc=rr_(.45,1.1)*(D==='f'?1.3:D==='n'?1.1:1)}
         if(lk<=0){const want=(y-tg)>-vy*.2;if(want!==hold){hold=want;lk=D==='f'?.12:D==='n'?.09:.06}}
-        vy+=(hold?-SH_UP:SH_G)*dd;vy=clamp(vy,-SH_VU,SH_VD);y+=vy*dd;if(y-SHH<CEIL){y=CEIL+SHH;if(vy<0)vy=0}if(y+SHH>FLOOR){y=FLOOR-SHH;if(vy>0)vy=0}}px+=st}
+        vy+=shA(hold,vy)*dd;vy=clamp(vy,-SH_VU,SH_VD);y+=vy*dd;if(y-SHH<CEIL){y=CEIL+SHH;if(vy<0)vy=0}if(y+SHH>FLOOR){y=FLOOR-SHH;if(vy>0)vy=0}}px+=st}
     const half=c.ship,sl=tolX+SHW,cor={kind:'ship',x0:x,x1:x+(n-1)*st,st,top:new Float32Array(n),bot:new Float32Array(n)};const yAt=xx=>ys[clamp(Math.round((xx-x)/st),0,n-1)];
     const cs=Math.ceil((x+B*3)/B)*B;for(let i=0;i<n;i++){cor.top[i]=CEIL;cor.bot[i]=FLOOR}
     for(let cx0=cs;cx0<xe-B;cx0+=B){let mn=1e9,mx=-1e9;for(let xx=cx0-sl;xx<=cx0+B+sl;xx+=st){const yy=yAt(xx);if(yy<mn)mn=yy;if(yy>mx)mx=yy}
@@ -7320,11 +7339,11 @@ const Gd={low:[30,'¿ESO ES TODO?','ni al 3 % has llegado, crack'],name:'Dash',w
     if(P.ev){for(const e of P.ev)s.fx(e);P.ev=null}
     if(r==='dead'){P.px=P.x;P.py=P.y;s.die();break}
     if(r==='win'){s.win();break}
-    if(P.mode==='wave'&&(n&1))s.trail.push(P.x,P.y);
+    if(P.mode==='wave')s.trail.push(P.x,P.y);
     if(P.mode==='ship'&&Math.random()<.35)s.parts.push({x:P.x-16,y:P.y+4,vx:-80-Math.random()*60,vy:(Math.random()-.5)*60,l:.35,m:.35,c:Math.random()<.5?'#ffd600':'#ff6b2b',s:3+Math.random()*3});
     if(P.mode==='cube'&&P.gr&&Math.random()<.18)s.parts.push({x:P.x-HS,y:P.y+HS-2,vx:-60-Math.random()*40,vy:-Math.random()*50,l:.3,m:.3,c:MCOL.cube,s:2+Math.random()*2})}
   if(n>=16)s.acc=0;
-  if(s.trail.length>140)s.trail.splice(0,s.trail.length-140);if(P.mode!=='wave'&&s.trail.length)s.trail.length=0;
+  if(s.trail.length>280)s.trail.splice(0,s.trail.length-280);if(P.mode!=='wave'&&s.trail.length)s.trail.length=0;
   /* giro del cubo */
   if(P.mode==='cube'){if(P.gr){const tg=Math.round(P.rot/(Math.PI/2))*(Math.PI/2);P.rot+=(tg-P.rot)*Math.min(1,dt*22)}else P.rot+=dt*Math.PI/T_AIR*1.0}
   else if(P.mode==='ship')P.rot=Math.atan2(P.vy,v)*.85;else P.rot=Math.atan2(P.vy,v);
@@ -7988,6 +8007,7 @@ const GU_T={
   ['.wheelcard','Ruleta gratis','Gírala gratis cada poco. Si la que sale no te convence, pulsa «Saltar a otra ruleta».'],
   ['.panel.daily','Premio diario','Cóbralo una vez al día. Si entras todos los días seguidos, la racha sube y el premio también.'],
   ['#guDay','Anuncio del día','Una vez al día puedes ver un anuncio y girar una ruleta especial con premios de hasta 10.000 €.'],
+  [null,'Tus amigos','En Ranking › Amigos agregas a tus colegas con su código. A tus amigos les puedes regalar dinero, mandar mensajitos troll y retar a duelos online. Y si invitas a alguien con tu enlace, ganas premios de hasta 2.000.000 € por cada uno.'],
   ['#nav','El menú','Desde aquí vas a todas las salas: Casino, Juegos, Ranking, Online… Toca cualquiera para entrar.']],
  rico:[['.panel.bank','Tu cartera','Esto es lo que tienes para gastar. Aquí te puedes comprar desde una hamburguesa hasta una isla.'],
   ['#cats','Categorías','Filtra por tipo: caprichos, coches, casas, aviones, equipos…'],
@@ -8476,8 +8496,8 @@ async function hardUpdate(btn){if(btn){btn.disabled=true;btn.textContent='Guarda
 let impShown='';
 function showImportant(v,msg){if(impShown===v)return;impShown=v;$('#updBar').hidden=true;
   let el=$('#impUpd');if(!el){el=document.createElement('div');el.id='impUpd';document.body.appendChild(el)}
-  el.innerHTML=`<div class="impbox" role="alertdialog" aria-modal="true"><div class="impico">⚠️</div><small>Aviso importante</small><h2>Hay que actualizar</h2><p>${esc(msg||'Hemos arreglado un error importante. Actualiza para seguir jugando bien.')}</p><button class="btn big" id="impGo">Actualizar ya</button><span class="impnote">Tu partida se guarda antes. No pierdes nada.</span></div>`;
-  el.hidden=false;sfx('big');try{navigator.vibrate&&navigator.vibrate([90,60,90])}catch(e){}$('#impGo').onclick=()=>hardUpdate($('#impGo'));setTimeout(()=>{try{$('#impGo').focus()}catch(e){}},80)}
+  el.innerHTML=`<div class="impbar" role="status"><span class="impico">⚠️</span><span class="imptx"><b>Actualización importante</b><small>${esc(msg||'Hemos arreglado un error importante. Actualiza cuando acabes lo que estás haciendo.')}</small></span><button class="btn sm" id="impGo">Actualizar</button><button class="impx" aria-label="Más tarde">✕</button></div>`;
+  el.hidden=false;sfx('coin');$('#impGo').onclick=()=>hardUpdate($('#impGo'));el.querySelector('.impx').onclick=()=>{el.hidden=true;$('#updMini').hidden=false;try{setBarH()}catch(e){}}}
 let cvFull=false,cvBusy=false,cvSeen='';
 async function checkVersion(){if(!/^https?:/.test(location.protocol)||document.hidden||cvBusy)return;cvBusy=true;
   try{const r=await fetch(location.pathname+'?ck='+Date.now(),{cache:'no-store',headers:{Range:'bytes=0-4095'}});if(!r.ok&&r.status!==206){cvBusy=false;return}cvFull=r.status===200;
@@ -8589,9 +8609,54 @@ function wWeigh(id,segs){let ws;if(id==='money'||id==='xp'||id==='mult'){const b
 function wOddsHTML(){if(!wSegs)return'';const W_=curWheel();const map=new Map();wSegs.forEach(s_=>{const k=s_.k+'|'+s_.lab;const m=map.get(k)||{s:s_,p:0};m.p+=s_.p;map.set(k,m)});
   const rows=[...map.values()].sort((a,b)=>(b.s.v||0)-(a.s.v||0)||b.p-a.p);
   const pc=p=>{const v=p*100;return(v<1?v.toFixed(1):v<10?v.toFixed(1):Math.round(v)).toString().replace('.',',')+' %'};
-  return`<details class="wodds"><summary>🎲 Probabilidades</summary><div class="wol">${rows.map(r=>`<div><span class="sw" style="background:${r.s.col}"></span><b>${esc(r.s.k==='box'?'Caja sorpresa':r.s.lab)}</b><em>${pc(r.p)}</em></div>`).join('')}</div><small>El tamaño de cada hueco de la ruleta es su probabilidad de verdad.</small></details>`}
+  return`<details class="wodds"><summary>🎲 Probabilidades</summary><div class="wol">${rows.map(r=>`<div><span class="sw" style="background:${r.s.col}"></span><b>${esc(r.s.k==='box'?'Caja sorpresa':r.s.lab)}</b><em>${pc(r.p)}</em></div>`).join('')}</div><small>Los premios gordos salen mucho menos que los pequeños.</small></details>`}
 const _dwOdds=drawWheel;drawWheel=function(){const r=_dwOdds.apply(this,arguments);try{const card=$('.wheelcard');if(card){let el=$('#wheelOdds');const op=el&&el.querySelector('details')&&el.querySelector('details').open;if(!el){el=document.createElement('div');el.id='wheelOdds';const inf=$('#wheelInfo');inf.insertAdjacentElement('afterend',el)}el.innerHTML=wOddsHTML();if(op)el.querySelector('details').open=true}}catch(e){}return r};
 try{drawWheel()}catch(e){}
+
+/* ---- Todo o nada: botín, bloqueo y más riesgo para quien ya lo ha ganado ---- */
+function jpWin(v){S.jpN=(S.jpN||0)+1;S.jp={v:Math.floor(v),t:Date.now()};S.riskLock=Date.now()+3*3600e3;save();NET.lastP='';try{pushPlayer()}catch(e){}renderJpBar();
+  setTimeout(()=>toast('Ruleta del todo o nada bloqueada','Durante 3 horas. Y la próxima vez arriesgarás más: '+riskPct()+' % de tu dinero','var(--red)','🔒'),4500)}
+function riskPct(){return 5+5*Math.min(4,S.jpN||0)}
+(function(){const W=WHEELS.find(w=>w.id==='risk');if(!W)return;
+  const RK=()=>{const c=Math.max(0,Math.floor(S.coins||0)),pc=riskPct()/100;return{L:Math.max(2000,Math.round(c*pc/100)*100),J:Math.max(1000000,Math.round(c*.5/1000)*1000)}};
+  W.segs=()=>{const {L,J}=RK();return Array.from({length:10},(_,i)=>i===0?{lab:short(J),col:'#ffd600',k:'eur',v:J,big:1}:{lab:'−'+short(L),col:i%2?'#3a0f18':'#561622',k:'lose',v:L})};
+  Object.defineProperty(W,'d',{configurable:true,get(){const {L,J}=RK();return'Un solo hueco da '+fmt(J)+' €. Los demás te quitan '+fmt(L)+' € (el '+riskPct()+' % de lo que tienes).'+((S.jpN||0)?' Ya la has ganado '+S.jpN+(S.jpN===1?' vez':' veces')+', así que arriesgas más.':'')}})})();
+const riskLocked=()=>+(S.riskLock||0)>Date.now();
+const _wnJp=wheelNext;wheelNext=function(){_wnJp.apply(this,arguments);if(curWheel().id==='risk'&&riskLocked())_wnJp.apply(this,arguments)};
+if(curWheel().id==='risk'&&riskLocked())try{_wnJp()}catch(e){}
+/* ---- barra de arriba: quién se ha llevado el gordo ---- */
+let jpSeen=new Set(JSON.parse(localStorage.getItem('jpSeen')||'[]')),jpIdx=0;
+function jpList(){const out=[];const now=Date.now();NET.players.forEach((p,id)=>{if(id===NET.id||ADM.bans.has(id))return;const j=p.jp;if(j&&+j.t>now-24*3600e3)out.push({id,name:p.name,v:+j.v,t:+j.t})});
+  if(S.jp&&+S.jp.t>now-24*3600e3&&S.name)out.push({id:NET.id||'me',name:S.name,v:+S.jp.v,t:+S.jp.t,me:true});return out.sort((a,b)=>b.t-a.t)}
+function renderJpBar(){let el=$('#jpBar');const L=jpList();if(!L.length||S.jpHide===L[0].t){if(el)el.hidden=true;return}
+  if(!el){el=document.createElement('div');el.id='jpBar';const bar=$('header.bar');bar.insertAdjacentElement('afterend',el)}
+  const x=L[jpIdx%L.length];el.hidden=false;el.innerHTML=`<span class="jpi">💰</span><span class="jpt"><b>${esc(x.me?'¡Tú!':dn({...x}))}</b> ${x.me?'te has llevado':'se ha llevado'} <em>${fmt(x.v)} €</em> en la ruleta del todo o nada · ${ago(x.t)}</span>${L.length>1?`<span class="jpn">${(jpIdx%L.length)+1}/${L.length}</span>`:''}<button class="jpgo" data-jpgo="1">Probar suerte</button><button class="jpx" aria-label="Cerrar">✕</button>`;
+  el.querySelector('.jpx').onclick=()=>{S.jpHide=L[0].t;save();el.hidden=true};el.querySelector('.jpgo').onclick=()=>{go('inicio');setTimeout(()=>{const c=$('.wheelcard');if(c)c.scrollIntoView({behavior:'smooth',block:'center'})},200)}}
+setInterval(()=>{jpIdx++;renderJpBar()},6000);setTimeout(renderJpBar,4000);
+const _opJp=onPlayers;onPlayers=function(){const r=_opJp.apply(this,arguments);try{jpList().forEach(x=>{const k=x.id+':'+x.t;if(!jpSeen.has(k)){jpSeen.add(k);if(!x.me&&Date.now()-x.t<10*60e3){sfx('big');troll(String(x.name||'ALGUIEN').toUpperCase()+' HA GANADO '+short(x.v)+' €','en la ruleta del todo o nada','#ffd600',true)}}});localStorage.setItem('jpSeen',JSON.stringify([...jpSeen].slice(-50)));renderJpBar()}catch(e){}return r};
+
+/* ===== 2026-10-03-n ===== */
+/* traducciones de textos nuevos */
+function i18nAdd(rows){rows.forEach(r=>{_i18nK.push(r[0]);_i18nT.en.push(r[1]);_i18nT.fr.push(r[2]);_i18nT.pt.push(r[3])});try{if(_i18nL&&_i18nL!=='es')_i18nApply(_i18nL)}catch(e){}}
+i18nAdd([['Tus amigos','Your friends','Tes amis','Os teus amigos'],
+ ['En Ranking › Amigos agregas a tus colegas con su código. A tus amigos les puedes regalar dinero, mandar mensajitos troll y retar a duelos online. Y si invitas a alguien con tu enlace, ganas premios de hasta 2.000.000 € por cada uno.','In Ranking › Friends you add your mates with their code. You can gift your friends money, send them troll messages and challenge them to online duels. And if you invite someone with your link, you win prizes of up to €2,000,000 for each one.','Dans Classement › Amis, tu ajoutes tes potes avec leur code. Tu peux offrir de l\'argent à tes amis, leur envoyer des petits messages troll et les défier en duel en ligne. Et si tu invites quelqu\'un avec ton lien, tu gagnes jusqu\'à 2 000 000 € par personne.','Em Ranking › Amigos adicionas os teus colegas com o código deles. Aos teus amigos podes oferecer dinheiro, mandar mensagens troll e desafiar para duelos online. E se convidares alguém com o teu link, ganhas prémios até 2.000.000 € por cada um.']]);
+/* amigos: no se pierden al cargar la partida de otro dispositivo */
+const _acbN=applyCloudBase;applyCloudBase=function(c){const lf=[...(S.friends||[])],lu=[...(S.unfr||[])];_acbN(c);const un=new Set([...(S.unfr||[]),...lu]);S.unfr=[...un];
+  S.friends=[...new Set([...(S.friends||[]),...lf,...(NET.accIds||[])])].filter(x=>!un.has(x)||(NET.accIds&&NET.accIds.has(x)))};
+/* trading: al entrar, siempre en Real */
+const _trGoN=go;go=function(v,g){if(v==='trading'&&view!=='trading'&&!(TRU.tut>=0)){try{trS();S.tr.acc='real';trDefAmt()}catch(e){}}return _trGoN(v,g)};
+/* snake: en Fácil y Normal hay un instante de margen antes de chocar */
+(()=>{const Sn=GAMES.snake,rs=Sn.reset,up=Sn.update,st=Sn.step;
+  const bad=(s,d)=>{const h={x:s.body[0].x+d.x,y:s.body[0].y+d.y};return h.x<0||h.y<0||h.x>=20||h.y>=20||s.body.slice(0,-1).some(b=>b.x===h.x&&b.y===h.y)};
+  Sn.reset=function(){rs.apply(this,arguments);this.grace=0;this.gUsed=false};
+  Sn.step=function(){const s=this,D=curDiff();if((D==='f'||D==='n')&&!(s.ghost>0)&&!s.dead){const d=s.q.length?s.q[0]:s.dir;
+      if(bad(s,d)){if(!s.gUsed){s.gUsed=true;s.grace=D==='f'?.34:.22;s.acc=0;return}}else s.gUsed=false}
+    return st.apply(this,arguments)};
+  Sn.update=function(dt){const s=this;if(s.grace>0&&!s.dead&&!(s.hold>0)){s.grace-=dt;if(s.q.length&&!bad(s,s.q[0]))s.grace=0;if(s.grace>0)return;s.acc=s.spd;s.gUsed=s.gUsed&&!s.q.length}return up.call(this,dt)}})();
+/* enlaces legales (necesarios para AdSense) */
+(()=>{const h='<nav class="legalf" aria-label="Información"><a href="sobre.html">Qué es Casinetori</a><a href="privacidad.html">Privacidad y cookies</a><a href="aviso-legal.html">Aviso legal</a><a href="contacto.html">Contacto</a><small>Juego gratis con dinero de mentira. Aquí no se apuesta ni se gana dinero real.</small></nav>';
+  ['#v-inicio','#v-ayuda','#v-ajustes'].forEach(q=>{const v=$(q);if(v&&!v.querySelector('.legalf'))v.insertAdjacentHTML('beforeend',h)})})();
+i18nAdd([['Qué es Casinetori','What is Casinetori','Qu\'est-ce que Casinetori','O que é o Casinetori'],['Privacidad y cookies','Privacy and cookies','Confidentialité et cookies','Privacidade e cookies'],['Aviso legal','Legal notice','Mentions légales','Aviso legal'],['Contacto','Contact','Contact','Contacto'],['Juego gratis con dinero de mentira. Aquí no se apuesta ni se gana dinero real.','Free game with fake money. No real money is bet or won here.','Jeu gratuit avec de l\'argent fictif. Ici, on ne parie ni ne gagne d\'argent réel.','Jogo grátis com dinheiro a fingir. Aqui não se aposta nem se ganha dinheiro real.']]);
 })();
 </script>
 
