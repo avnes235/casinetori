@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Casinetori · Casino de mentira y juegos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-03-n">
+<meta name="app-version" content="2026-10-03-p">
 <link rel="icon" type="image/png" href="favicon.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -1591,6 +1591,31 @@ button:focus-visible,[role="button"]:focus-visible,summary:focus-visible,a:focus
 #impUpd .impbar{display:flex;align-items:center;gap:10px;background:#2a0d14;border:2px solid var(--red);border-radius:12px;padding:8px 8px 8px 12px;box-shadow:0 12px 30px rgba(0,0,0,.5);animation:tipin .3s ease-out}
 #impUpd .impico{font-size:24px}#impUpd .imptx{flex:1;min-width:0}#impUpd .imptx b{display:block;font-size:14px;color:#ff8a96}#impUpd .imptx small{display:block;font-size:12px;font-weight:700;color:var(--muted);line-height:1.3}
 #impUpd .impx{background:none;border:0;color:var(--muted);font-size:16px;cursor:pointer;padding:4px}
+.nc-xog,.nc-xvip{-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important;background-size:250% 100%!important;animation:rgbmove 2.6s linear infinite}
+.nc-xog{background:linear-gradient(90deg,#ffd600,#fff6c2,#b06bff,#7a2cff,#ffd600)}
+.nc-xvip{background:linear-gradient(90deg,#ff4fd8,#ffffff,#3ff0ff,#ff4fd8)}
+.fr-xog{box-shadow:0 0 0 3px #ffd600,0 0 0 6px #7a2cff,0 0 22px #b06bff!important;animation:xogpulse 1.8s ease-in-out infinite}
+@keyframes xogpulse{50%{box-shadow:0 0 0 3px #b06bff,0 0 0 6px #ffd600,0 0 30px #ffd600}}
+.fr-xvip{box-shadow:0 0 0 3px #fff,0 0 0 6px #ff4fd8,0 0 0 9px #3ff0ff,0 0 24px #ff4fd8!important}
+.fr-xbug{box-shadow:0 0 0 3px #14e08a,0 0 16px #14e08a!important;animation:xbug .9s steps(2) infinite}
+@keyframes xbug{50%{box-shadow:2px 0 0 3px #14e08a,-3px 0 0 3px #ff3b4f,0 0 22px #14e08a}}
+.mecard.bg-xog{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='60'%3E%3Ctext x='8' y='40' font-family='Arial Black,Arial' font-weight='900' font-size='28' fill='%23ffd600' fill-opacity='.13' transform='rotate(-14 45 30)'%3EOG%3C/text%3E%3C/svg%3E"),linear-gradient(135deg,#1a0636,#3b0d6e 55%,#120326);border:2px solid #ffd600}
+.mecard.bg-xvip{background:radial-gradient(circle at 15% 20%,rgba(255,79,216,.55),transparent 50%),radial-gradient(circle at 85% 80%,rgba(63,240,255,.45),transparent 50%),#0b0618;border:2px solid #ff4fd8}
+.xopt{border-color:#b06bff!important;background:linear-gradient(160deg,rgba(176,107,255,.18),transparent)!important}.lk.xk{background:#7a2cff!important;color:#fff!important}
+#excWin{position:fixed;inset:0;z-index:10000;display:grid;place-items:center;padding:16px;background:rgba(5,3,14,.86);backdrop-filter:blur(5px);animation:tipin .25s ease-out;overflow:hidden}
+#excWin .rays{position:absolute;left:50%;top:50%;width:200vmax;height:200vmax;margin:-100vmax 0 0 -100vmax;background:repeating-conic-gradient(rgba(255,214,0,.13) 0 9deg,transparent 9deg 22deg);animation:xrays 14s linear infinite;pointer-events:none}
+@keyframes xrays{to{transform:rotate(360deg)}}
+#excWin .xbox{position:relative;max-width:440px;width:100%;text-align:center;background:linear-gradient(170deg,#24104a,#120a26);border:3px solid #ffd600;border-radius:18px;padding:22px 18px;box-shadow:0 0 0 6px rgba(176,107,255,.35),0 30px 90px rgba(0,0,0,.7);animation:impin .5s cubic-bezier(.2,1.5,.4,1)}
+#excWin small.k{display:block;font:900 12px var(--f-b);letter-spacing:3px;text-transform:uppercase;color:#d7b6ff}
+#excWin h2{font-size:34px;margin:4px 0 12px;line-height:1.05;color:#ffd600;text-shadow:0 3px 0 #000}
+#excWin .xit{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin:8px 0 14px}
+#excWin .xi{display:flex;flex-direction:column;align-items:center;gap:8px;min-width:110px;padding:12px 10px;background:rgba(0,0,0,.35);border:2px solid rgba(255,255,255,.12);border-radius:14px;animation:xpop .5s cubic-bezier(.2,1.6,.4,1) both}
+@keyframes xpop{from{transform:scale(.3) rotate(-8deg);opacity:0}}
+#excWin .xi>b{font-size:12px;color:var(--muted)}#excWin .xi .bigav{width:64px;height:64px;font-size:38px}#excWin .xi .nm{font:900 22px var(--f-b)}
+#excWin .xi .ptitle{margin:0;font-size:15px;border:2px solid #ffd600}#excWin .xi .xbg{width:96px;height:56px;border-radius:10px;padding:0}#excWin .xi .xav{font-size:46px;line-height:1}
+#excWin p{margin:0 0 14px;font-weight:700;color:var(--muted)}#excWin .btn{width:100%}#excWin .linkb{margin-top:8px}
+.excad{display:flex;flex-wrap:wrap;gap:6px}.excad button{font:800 12px var(--f-b);padding:7px 10px;border-radius:9px;border:2px solid #7a2cff;background:#1b1030;color:#fff;cursor:pointer}.excad button[aria-pressed=true]{background:#7a2cff;border-color:#ffd600}.excad button.pk{border-color:#ffd600;color:#ffd600}
+.tt.xtt,.ptt.xtt,.ptitle.xtt,#rkTitle.xtt{background:linear-gradient(90deg,#ffd600,#b06bff)!important;color:#111!important;font-style:normal;padding:0 5px;border-radius:4px}
 .legalf{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 16px;margin:28px 0 8px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08);font-size:12px;font-weight:700}.legalf a{color:var(--muted);text-decoration:none}.legalf a:hover{color:var(--sun)}.legalf small{flex-basis:100%;text-align:center;color:var(--muted);opacity:.6;font-size:11px}
 #impUpd .impbar .btn{flex:none;width:auto;margin:0;padding:8px 12px;font-size:12px;min-height:0;line-height:1}#impUpd .imptx small{letter-spacing:0;text-transform:none;font:700 12px var(--f-b);color:var(--muted);overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}#impUpd .impico{animation:none}
 #jpBar{display:flex;align-items:center;gap:10px;margin:0 0 12px;padding:8px 10px;border:2px solid #ffd600;border-radius:10px;background:linear-gradient(90deg,rgba(255,214,0,.18),rgba(255,214,0,.04));font-weight:700;font-size:14px;animation:jpglow 2s ease-in-out infinite}
@@ -2777,10 +2802,10 @@ html[data-fit="s"]{zoom:.88}html[data-fit="x"]{zoom:.76}
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="format-detection" content="telephone=no">
-<link rel="canonical" href="https://avnes235.github.io/casinetori/">
-<meta property="og:url" content="https://avnes235.github.io/casinetori/">
-<meta property="og:image" content="https://avnes235.github.io/casinetori/og.png">
-<meta name="twitter:image" content="https://avnes235.github.io/casinetori/og.png">
+<link rel="canonical" href="https://casinetori.com/">
+<meta property="og:url" content="https://casinetori.com/">
+<meta property="og:image" content="https://casinetori.com/og.png">
+<meta name="twitter:image" content="https://casinetori.com/og.png">
 <!-- Cuando Google Search Console te dé el código, quita el comentario y pégalo aquí:
 <meta name="google-site-verification" content="CODIGO_DE_SEARCH_CONSOLE">
 -->
@@ -4517,8 +4542,8 @@ function openProfile(first){if(!first){go('perfil');return}let av=S.av||AVS[ri(0
     sfx('big');confetti(120);troll('QUE PASA, '+S.name.toUpperCase(),'a ver cuánto dinero haces',null,true)};
   $('#pSave').onclick=doSave;$('#pName').addEventListener('keydown',e=>{if(e.key==='Enter')doSave()})}
 function renderPerfil(){const c=myCos(),L=S.lvl,t=tiText();
-  const opt=(k,x,inner)=>{const locked=L<x[2];return`<button class="opt" data-set="${k}" data-val="${x[0]}" aria-pressed="${c[k]===x[0]}" ${locked?'disabled':''}>${inner}<span>${x[1]}</span>${locked?`<span class="lk">Nivel ${x[2]}</span>`:''}</button>`};
-  const avs=[...AVS.map(a=>[a,1]),...AVX,...AVW.map(a=>[a,(S.avWon||[]).includes(a)?1:999])];
+  const opt=(k,x,inner)=>{const xe=x[4]==='x';if(xe&&!hasExc(k,x[0])&&!cfg('showExc'))return'';const locked=xe?!hasExc(k,x[0]):L<x[2];return`<button class="opt${xe?' xopt':''}" data-set="${k}" data-val="${x[0]}" aria-pressed="${c[k]===x[0]}" ${locked?'disabled':''}>${inner}<span>${x[1]}</span>${locked?`<span class="lk">${xe?'Exclusivo':'Nivel '+x[2]}</span>`:xe?'<span class="lk xk">Exclusivo</span>':''}</button>`};
+  const avs=[...AVS.map(a=>[a,1]),...AVX,...AVW.map(a=>[a,(S.avWon||[]).includes(a)?1:999]),...EXAV.filter(a=>hasExc('av',a)).map(a=>[a,1])];
   $('#pfBody').innerHTML=`<div class="pf">
     <div class="panel mecard bg-${c.bg}"><span class="bigav emo ${frCls(c)}">${avH({av:S.av,img:S.img},'😎')}</span><div class="mtext" style="min-width:0;flex:1"><h2 class="${ncCls(c)}">${esc(S.name||'Sin nombre')}</h2>${t?`<div class="ptitle">${esc(t)}</div>`:''}
       <div style="font-weight:700;opacity:.92">Nivel ${S.lvl} · ${short(S.coins)} € · ${fmtTime(S.playtime||0)} jugado</div><div class="vit">${showList().map(i=>`<span class="emo">${P[i][0]}</span>`).join('')}</div></div></div>
@@ -4549,7 +4574,7 @@ function bestPub(){const o={};Object.keys(S.best||{}).forEach(k=>{if(k.includes(
 function normP(d){if(d&&Array.isArray(d.own))d.own=d.own.map(o=>Array.isArray(o)?o:o&&typeof o==='object'?[o.e,o.n,o.q,o.p]:o);return d}
 async function pushPlayer(){if(!NET.ok||!NET.id||!S.name||NET.kicked)return;if(NET.busyP){NET.pushAgain=true;return}const c=myCos();
   const body={name:S.name.slice(0,14),av:S.av||'😎',code:S.code||'',coins:Math.floor(S.coins),earned:Math.floor(S.earned),lvl:S.lvl,ach:S.ach.length,spent:ownedValue(),col:ownedValue(),cheat:S.strikes||0,
-    pt:Math.floor(S.playtime||0),cw:st('casinoWon'),clk:st('clicks'),best:bestPub(),cos:{c:c.c,f:c.f,bg:c.bg},img:S.img||'',ti:tiText(),show:cfg('showVit')?showList().map(i=>P[i][0]):[],own:cfg('showVit')?ownPub().map(o=>({e:o[0],n:o[1],q:o[2],p:o[3]})):[],achL:(S.ach||[]).slice(0,80),since:S.since||Date.now(),bw:S.bw||{},gm:st('games'),sp:st('spins'),wn:st('wins'),ord:S.orders||0,gf:st('gifts'),trs:st('sent'),pr:st('pranks'),gold:st('golden'),strk:(S.daily||{}).streak||0,at:curAt(),bl:S.bl||{},cl:st('casinoLost'),blv:bestLvPub(),jp:S.jp||null};
+    pt:Math.floor(S.playtime||0),cw:st('casinoWon'),clk:st('clicks'),best:bestPub(),cos:{c:c.c,f:c.f,bg:c.bg},img:S.img||'',ti:tiText(),show:cfg('showVit')?showList().map(i=>P[i][0]):[],own:cfg('showVit')?ownPub().map(o=>({e:o[0],n:o[1],q:o[2],p:o[3]})):[],achL:(S.ach||[]).slice(0,80),since:S.since||Date.now(),bw:S.bw||{},gm:st('games'),sp:st('spins'),wn:st('wins'),ord:S.orders||0,gf:st('gifts'),trs:st('sent'),pr:st('pranks'),gold:st('golden'),strk:(S.daily||{}).streak||0,at:curAt(),bl:S.bl||{},cl:st('casinoLost'),blv:bestLvPub(),jp:S.jp||null,exc:(S.exc||[]).slice(0,40)};
   const j=JSON.stringify({...body,pt:0});if(j===NET.lastP&&Date.now()-(NET.lastT||0)<60000)return;
   NET.busyP=true;try{await NET.db.collection('players').doc(NET.id).set({...body,t:Date.now()});NET.lastP=j;NET.lastT=Date.now()}
   catch(e){NET.pushErr=String(e&&e.message||e);try{console.warn('pushPlayer',e)}catch(_){}if(e&&e.code==='permission-denied'){NET.ro=true;NET.why='La base de datos no deja guardar. Revisa las reglas de Firebase.';renderRank()}}NET.busyP=false;if(NET.pushAgain){NET.pushAgain=false;setTimeout(pushPlayer,250)}}
@@ -4923,6 +4948,8 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-03-p',t:'Cosas exclusivas',items:[['👑','Exclusivos del jefe','Títulos, marcos, colores, fondos y caras que no se consiguen jugando: solo los regala el jefe. Para los que están desde el principio hay un pack OG.','new','#b06bff'],['🚀','Nave mejor','La nave cae más rápido, sube con más fuerza y gira suave. Arreglado que en Hasbirinino la nave saliera disparada al entrar desde la wave.','fix','#ff4fd8']]},
+ {v:'2026-10-03-o',t:'Casinetori.com',items:[['🏠','Web nueva: casinetori.com','Casinetori ya tiene su propia dirección. Si entras por la antigua, pulsa el botón y te llevas tu partida entera, con tus amigos incluidos.','new','#ffd600']]},
  {v:'2026-10-03-n',t:'Más control',items:[['🚀','Dash más rápido de reflejos','La nave y la wave responden al instante: en cuanto pulsas, sube; en cuanto sueltas, baja.','fix','#3ff0ff'],['🐍','Snake perdona','En Fácil y Normal, justo antes de chocar con la pared o contigo mismo hay un instante para girar, como en el original.','new','#14e08a'],['🤝','Amigos que no se van','Tus amigos ya no desaparecen al jugar en otro móvil u ordenador.','fix','#ff4fd8'],['📈','Trading en Real','Al entrar en Trading empiezas directamente en tu dinero de verdad.','fix','#ffd600']]},
  {v:'2026-10-03-m',t:'El gordo del todo o nada',items:[['💰','Se ve quién se lo lleva','Cuando alguien gana el premio gordo de la ruleta del todo o nada, sale arriba para todos durante 24 horas.','new','#ffd600'],['🔒','Más riesgo para los que ganan','Si te toca el gordo, esa ruleta se bloquea 3 horas y la próxima vez arriesgas más: un 5 % más de tu dinero por cada vez que la hayas ganado.','new','#ff3b4f'],['⏭️','Saltar ruleta','Saltar a otra ruleta ahora cuesta 1.000 €.','new','#ff6b4a'],['🎡','Ruletas más bonitas','Los huecos vuelven a ser iguales; las probabilidades se ven en el desplegable de abajo.','fix','#3f7cff'],['⚠️','Aviso sin cortar el juego','El aviso de actualización importante ya no tapa la pantalla: sale arriba y actualizas cuando quieras.','fix','#14e08a']]},
  {v:'2026-10-03-l',t:'Ruletas con probabilidades',items:[['🎲','Probabilidades','Las ruletas de Inicio ya no tienen todos los huecos iguales: los premios gordos tienen el hueco más pequeño. Debajo de la ruleta puedes ver la probabilidad exacta de cada premio.','new','#ff6b4a']]},
@@ -7163,7 +7190,7 @@ const GD=(()=>{
 const B=40,W=520,H=620,FLOOR=520,CEIL=120,PX=150,DT=1/240,BK=160;
 const T_AIR=.44,JH=86,GRAV=8*JH/(T_AIR*T_AIR),JV=4*JH/T_AIR,VMAXF=1150;
 const HS=17,HI=7,HK=12,SNAP=9,OR=30,BUF=.1;
-const SH_G=1100,SH_UP=1700,shA=(h,vy)=>h?(vy>0?-SH_UP*3.2:-SH_UP):(vy<0?SH_G*3.2:SH_G),SH_VU=400,SH_VD=370,SHW=14,SHH=9,WVH=6,WK=1;
+const SH_G=1750,SH_UP=1800,shA=(h,vy)=>h?(vy>0?-SH_UP*2.3:-SH_UP):(vy<0?SH_G*2.3:SH_G),SH_VU=470,SH_VD=580,SHW=14,SHH=9,WVH=6,WK=1;
 const PADF=1.42,ORBF=.96;
 const MCOL={cube:'#3dff8a',ship:'#ff4fd8',wave:'#3ff0ff'},MHUE={cube:225,ship:292,wave:190};
 const DCFG={
@@ -7185,7 +7212,7 @@ const mkP=(x,y)=>({k:'p',x,y,f:PADF,x0:x-20,x1:x+20});
 const mkO=(x,y)=>({k:'o',x,y,f:ORBF,x0:x-OR,x1:x+OR});
 const mkG=(x,y)=>({k:'g',x,y,x0:x-14,x1:x+14});
 /* ---------- física (la misma para jugar y para comprobar que el nivel se puede pasar) ---------- */
-function setMode(P,m){if(P.mode===m)return;P.mode=m;P.gr=false;if(m==='ship')P.vy*=.5;if(m==='cube')P.vy=Math.max(P.vy,-JV*.5)}
+function setMode(P,m){if(P.mode===m)return;P.mode=m;P.gr=false;if(m==='ship')P.vy=0;if(m==='cube')P.vy=Math.max(P.vy,-JV*.5)}
 function step(P,hold,Wd,v,used,dt){const x0=P.x;P.x+=v*dt;if(P.buf>0)P.buf-=dt;
   for(const q of Wd.portals)if(q.x>x0&&q.x<=P.x&&P.mode!==q.m){setMode(P,q.m);P.ev=P.ev||[];P.ev.push(['portal',q])}
   let dead=false;
@@ -7267,9 +7294,10 @@ function gen(seed,D){const R=rng(seed),c=DCFG[D],v=c.v,tolX=v*c.tol,Wd=new World
         if(lk<=0){const want=(y-tg)>-vy*.2;if(want!==hold){hold=want;lk=D==='f'?.12:D==='n'?.09:.06}}
         vy+=shA(hold,vy)*dd;vy=clamp(vy,-SH_VU,SH_VD);y+=vy*dd;if(y-SHH<CEIL){y=CEIL+SHH;if(vy<0)vy=0}if(y+SHH>FLOOR){y=FLOOR-SHH;if(vy>0)vy=0}}px+=st}
     const half=c.ship,sl=tolX+SHW,cor={kind:'ship',x0:x,x1:x+(n-1)*st,st,top:new Float32Array(n),bot:new Float32Array(n)};const yAt=xx=>ys[clamp(Math.round((xx-x)/st),0,n-1)];
-    const cs=Math.ceil((x+B*3)/B)*B;for(let i=0;i<n;i++){cor.top[i]=CEIL;cor.bot[i]=FLOOR}
+    const cs=Math.ceil((x+Math.max(B*3,v*.6))/B)*B;for(let i=0;i<n;i++){cor.top[i]=CEIL;cor.bot[i]=FLOOR}
     for(let cx0=cs;cx0<xe-B;cx0+=B){let mn=1e9,mx=-1e9;for(let xx=cx0-sl;xx<=cx0+B+sl;xx+=st){const yy=yAt(xx);if(yy<mn)mn=yy;if(yy>mx)mx=yy}
-      let t=Math.floor((mn-half)/B)*B,b=Math.ceil((mx+half)/B)*B;if(t<=CEIL)t=CEIL;if(b>=FLOOR)b=FLOOR;
+      const fnb=Math.ceil(v*.9/B),bi=Math.round((cx0-cs)/B),ext=bi<fnb?(fnb-bi)/fnb*(FLOOR-CEIL)*.55:0;
+      let t=Math.floor((mn-half-ext)/B)*B,b=Math.ceil((mx+half+ext)/B)*B;if(t<=CEIL)t=CEIL;if(b>=FLOOR)b=FLOOR;
       for(let xx=cx0;xx<cx0+B;xx+=st){const i=Math.round((xx-x)/st);if(i>=0&&i<n){cor.top[i]=t;cor.bot[i]=b}}
       if(t>CEIL&&mn-SHH-(t+B*.6)>=half*.42&&R()<c.deco)Wd.add(mkS(cx0,t,-1));
       if(b<FLOOR&&(b-B*.6)-(mx+SHH)>=half*.42&&R()<c.deco)Wd.add(mkS(cx0,b,1))}
@@ -7285,9 +7313,9 @@ function gen(seed,D){const R=rng(seed),c=DCFG[D],v=c.v,tolX=v*c.tol,Wd=new World
       seg-=st;let ny=y+dir*st*WK;
       if(ny<=lo||ny>=hi){ny=clamp(ny,lo,hi);if(R()<.45)slide=rr_(B,B*3);else{dir=-dir;seg=rr_(c.wseg[0],c.wseg[1])}}
       else if(seg<=0){dir=-dir;seg=rr_(c.wseg[0],c.wseg[1])}y=ny}
-    const half=c.wave,w=WVH+tolX,cor={kind:'wave',x0:x,x1:x+(n-1)*st,st,top:new Float32Array(n),bot:new Float32Array(n)},k=Math.ceil(w/st),open=Math.ceil(B*2.5/st);
+    const half=c.wave,w=WVH+tolX,cor={kind:'wave',x0:x,x1:x+(n-1)*st,st,top:new Float32Array(n),bot:new Float32Array(n)},k=Math.ceil(w/st),open=Math.ceil(Math.max(B*2.5,v*.5)/st);
     for(let i=0;i<n;i++){let mn=1e9,mx=-1e9;for(let q=Math.max(0,i-k);q<=Math.min(n-1,i+k);q++){if(ys[q]<mn)mn=ys[q];if(ys[q]>mx)mx=ys[q]}
-      cor.top[i]=i<open?CEIL:Math.max(CEIL,mn-half);cor.bot[i]=i<open?FLOOR:Math.min(FLOOR,mx+half)}
+      const fw=Math.ceil(v*.6/st),ex=i<open+fw?(1-(i-open)/fw)*(FLOOR-CEIL)*.5:0;cor.top[i]=i<open?CEIL:Math.max(CEIL,mn-half-ex);cor.bot[i]=i<open?FLOOR:Math.min(FLOOR,mx+half+ex)}
     Wd.cors.push(cor);for(let i=open+8;i<n-8;i+=ri_(25,45))if(R()<.45)Wd.add(mkG(x+i*st,ys[i]));
     for(let i=2;i<n;i+=20)Wd.cps.push({x:x+i*st,y:ys[i],mode:'wave',vy:0,hold:hs[i]});
     Wd.secs.push({m:'wave',x0:x,x1:xe,ys,hs,st});return{y:ys[n-1]}}
@@ -7346,7 +7374,7 @@ const Gd={low:[30,'¿ESO ES TODO?','ni al 3 % has llegado, crack'],name:'Dash',w
   if(s.trail.length>280)s.trail.splice(0,s.trail.length-280);if(P.mode!=='wave'&&s.trail.length)s.trail.length=0;
   /* giro del cubo */
   if(P.mode==='cube'){if(P.gr){const tg=Math.round(P.rot/(Math.PI/2))*(Math.PI/2);P.rot+=(tg-P.rot)*Math.min(1,dt*22)}else P.rot+=dt*Math.PI/T_AIR*1.0}
-  else if(P.mode==='ship')P.rot=Math.atan2(P.vy,v)*.85;else P.rot=Math.atan2(P.vy,v);
+  else if(P.mode==='ship'){const tr=Math.atan2(P.vy,v)*.75;P.rot+=(tr-P.rot)*Math.min(1,dt*7)}else P.rot=Math.atan2(P.vy,v);
   s.hue+=(MHUE[P.mode]-s.hue)*Math.min(1,dt*3);
   const pr=clamp(P.x/s.Wd.end,0,1);if(pr>s.maxP)s.maxP=pr;const sc=Math.floor(s.maxP*1000)+P.gems*25+(s.won?300:0);if(sc!==s.sc){s.sc=sc;setScore(sc)}},
  fx(e){const s=this,P=s.P,sx=P.x-(P.x-PX);if(e[0]==='portal'){s.flash=.6;s.fcol=MCOL[e[1].m];tone(e[1].m==='cube'?520:e[1].m==='ship'?660:780,.18,'triangle',.06,300);burst(PX,P.y,MCOL[e[1].m],18,260,.5,4)}
@@ -8409,8 +8437,8 @@ const _opL=openProfile;openProfile=function(first){if(first&&!S.langAsked&&!(S.c
 (function(){const iv=setInterval(()=>{if(S.langAsked||(S.cfg&&S.cfg.lang)){clearInterval(iv);return}if(S.name&&$('#modal').hidden)askLang()},1500)})();
 
 /* ================= MUDANZA a GitHub + app instalable ================= */
-const NEW_HOME='https://avnes235.github.io/casinetori/';
-const OLD_SITE=/netlify\.app$/i.test(location.hostname);
+const NEW_HOME='https://casinetori.com/';
+const OLD_SITE=/(netlify\.app|github\.io)$/i.test(location.hostname);
 function mvCode(){const a=new Uint8Array(18);crypto.getRandomValues(a);return[...a].map(x=>'abcdefghijkmnpqrstuvwxyz23456789'[x%32]).join('')}
 async function mvGo(){const b=$('#mvGo');if(b){b.disabled=true;b.textContent='Preparando tu partida…'}
   if(!NET.isAnon){location.href=NEW_HOME;return}
@@ -8419,7 +8447,7 @@ async function mvGo(){const b=$('#mvGo');if(b){b.disabled=true;b.textContent='Pr
   catch(e){if(b){b.disabled=false;b.textContent='Llevarme mi partida'}const w=$('#mvErr');if(w){w.hidden=false}}}
 function mvAsk(){if(!OLD_SITE)return;$('#modal').hidden=false;const mb=$('#mbox');mb.classList.remove('wide','notes');mb.onclick=null;mb.dataset.lock='1';
   mb.innerHTML=`<h2 style="font-size:30px">🏠 ¡Nos mudamos!</h2><p class="muted" style="font-weight:700">Casinetori tiene casa nueva. Esta web dejará de funcionar pronto.</p>
-   <p class="mvurl">avnes235.github.io/casinetori</p>
+   <p class="mvurl">casinetori.com</p>
    ${NET.isAnon?'<p class="muted" style="font-weight:700">Pulsa el botón y te llevas tu partida entera: dinero, nivel, cosas y amigos. No hace falta cuenta.</p>':'<p class="muted" style="font-weight:700">Tienes cuenta, así que solo entra allí con tu usuario y contraseña y tendrás tu partida.</p>'}
    <div class="form"><button class="btn big" id="mvGo">${NET.isAnon?'Llevarme mi partida':'Ir a la web nueva'}</button><p class="warn" id="mvErr" hidden>No se ha podido preparar la mudanza. Crea una cuenta en Ajustes y entra con ella en la web nueva.</p><button class="linkb" id="mvLater">Ahora no</button></div>`;
   $('#mvGo').onclick=mvGo;$('#mvLater').onclick=()=>{delete mb.dataset.lock;closeModal()}}
@@ -8429,7 +8457,7 @@ async function mvImport(){const m=/#mv=([a-z0-9]{10,40})/.exec(location.hash);if
     if(!sn.exists){toast('Esa mudanza ya se usó','Si te falta la partida, escríbele al jefe','var(--coral)','⚠️');return}
     const c=JSON.parse((sn.data()||{}).json||'null');if(!c||typeof c!=='object')return;const keepCfg=S.cfg;
     if(!S.name||(+c.earned||0)>=(S.earned||0)){applyCloud(c);if(keepCfg&&keepCfg.lang)S.cfg={...(S.cfg||{}),lang:keepCfg.lang};S.langAsked=true;save();
-      try{if(!$('#modal').hidden&&$('#pName'))closeModal()}catch(e){}NET.lastP='';pushPlayer();cloudSave(true);sfx('big');confetti(160);troll('¡BIENVENIDO A CASA!','tu partida se ha venido contigo','#14e08a',true)}
+      try{if(!$('#modal').hidden&&$('#pName'))closeModal()}catch(e){}NET.lastP='';pushPlayer();cloudSave(true);(S.friends||[]).forEach(f=>{if(f&&f!==NET.id)NET.db.collection('freq/'+f+'/acc').doc(NET.id).set({t:Date.now(),sync:1},{merge:true}).catch(()=>{})});sfx('big');confetti(160);troll('¡BIENVENIDO A CASA!','tu partida se ha venido contigo','#14e08a',true)}
     NET.db.collection('moves').doc(id).delete().catch(()=>{})}catch(e){}}
 setTimeout(()=>{if(OLD_SITE){const iv=setInterval(()=>{if(NET.ok||Date.now()-performance.timeOrigin>15000){clearInterval(iv);mvAsk()}},800)}else mvImport()},1500);
 if('serviceWorker' in navigator&&location.protocol==='https:'&&!OLD_SITE){addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{})})}
@@ -8657,6 +8685,63 @@ const _trGoN=go;go=function(v,g){if(v==='trading'&&view!=='trading'&&!(TRU.tut>=
 (()=>{const h='<nav class="legalf" aria-label="Información"><a href="sobre.html">Qué es Casinetori</a><a href="privacidad.html">Privacidad y cookies</a><a href="aviso-legal.html">Aviso legal</a><a href="contacto.html">Contacto</a><small>Juego gratis con dinero de mentira. Aquí no se apuesta ni se gana dinero real.</small></nav>';
   ['#v-inicio','#v-ayuda','#v-ajustes'].forEach(q=>{const v=$(q);if(v&&!v.querySelector('.legalf'))v.insertAdjacentHTML('beforeend',h)})})();
 i18nAdd([['Qué es Casinetori','What is Casinetori','Qu\'est-ce que Casinetori','O que é o Casinetori'],['Privacidad y cookies','Privacy and cookies','Confidentialité et cookies','Privacidade e cookies'],['Aviso legal','Legal notice','Mentions légales','Aviso legal'],['Contacto','Contact','Contact','Contacto'],['Juego gratis con dinero de mentira. Aquí no se apuesta ni se gana dinero real.','Free game with fake money. No real money is bet or won here.','Jeu gratuit avec de l\'argent fictif. Ici, on ne parie ni ne gagne d\'argent réel.','Jogo grátis com dinheiro a fingir. Aqui não se aposta nem se ganha dinheiro real.']]);
+
+/* ===== 2026-10-03-p: EXCLUSIVOS (solo los da el jefe) ===== */
+const EXAV=['🐐','🔱','🗿','🏆'];
+COS.ti.push(['xog','OG',999,'','x'],['xfund','Fundador',999,'','x'],['xbug','Cazabugs',999,'','x'],['xvip','VIP',999,'','x'],['xjefe','Mano derecha del jefe',999,'','x'],['xley','Leyenda de Casinetori',999,'','x']);
+COS.f.push(['xog','OG',999,'fr-xog','x'],['xvip','VIP',999,'fr-xvip','x'],['xbug','Cazabugs',999,'fr-xbug','x']);
+COS.c.push(['xog','OG',999,'nc-xog','x'],['xvip','VIP',999,'nc-xvip','x']);
+COS.bg.push(['xog','OG',999,'bg-xog','x'],['xvip','VIP',999,'bg-xvip','x']);
+BGSW.xog="linear-gradient(135deg,#1a0636,#3b0d6e 55%,#120326)";BGSW.xvip="radial-gradient(circle at 15% 20%,#ff4fd8,transparent 55%),radial-gradient(circle at 85% 80%,#3ff0ff,transparent 55%),#0b0618";
+const EXC_PACKS={og:['ti:xog','f:xog','c:xog','bg:xog','av:🐐'],vip:['ti:xvip','f:xvip','c:xvip','bg:xvip'],bug:['ti:xbug','f:xbug']};
+const EXC_KN={ti:'Título',f:'Marco',c:'Color de nombre',bg:'Fondo',av:'Cara'};
+const EXC_ALL=[...COS.ti.filter(x=>x[4]==='x').map(x=>'ti:'+x[0]),...COS.f.filter(x=>x[4]==='x').map(x=>'f:'+x[0]),...COS.c.filter(x=>x[4]==='x').map(x=>'c:'+x[0]),...COS.bg.filter(x=>x[4]==='x').map(x=>'bg:'+x[0]),...EXAV.map(a=>'av:'+a)];
+function hasExc(k,id){return(S.exc||[]).includes(k+':'+id)}
+function excName(key){const[k,id]=[key.slice(0,key.indexOf(':')),key.slice(key.indexOf(':')+1)];if(k==='av')return'Cara '+id;const x=(COS[k]||[]).find(y=>y[0]===id);return(EXC_KN[k]||'')+' «'+(x?x[1]:id)+'»'}
+const EXC_TI=new Set(COS.ti.filter(x=>x[4]==='x').map(x=>x[1]));
+function excPrev(key){const i=key.indexOf(':'),k=key.slice(0,i),id=key.slice(i+1),c=myCos(),av=avH({av:S.av,img:S.img},'😎');
+  if(k==='ti'){const x=COS.ti.find(y=>y[0]===id);return`<span class="ptitle xtt">${esc(x?x[1]:id)}</span>`}
+  if(k==='f')return`<span class="bigav emo ${cosOf('f',id)[3]}">${av}</span>`;
+  if(k==='c')return`<span class="nm ${cosOf('c',id)[3]}">${esc(S.name||'Tu nombre')}</span>`;
+  if(k==='bg')return`<span class="mecard xbg ${'bg-'+id}"></span>`;
+  if(k==='av')return`<span class="xav emo">${esc(id)}</span>`;return''}
+/* la pantalla de «has recibido» (espera a que acabes la partida) */
+let excQ=[],excOpen=false;
+function excShow(keys,from){excQ.push(...keys.filter(k=>!excQ.includes(k)));excTry()}
+function excTry(){if(excOpen||!excQ.length)return;if(typeof running!=='undefined'&&running){setTimeout(excTry,1200);return}
+  const keys=excQ.splice(0);excOpen=true;let el=$('#excWin');if(!el){el=document.createElement('div');el.id='excWin';document.body.appendChild(el)}
+  const one=keys.length===1;
+  el.innerHTML=`<div class="rays"></div><div class="xbox" role="dialog" aria-label="Regalo exclusivo"><small class="k">👑 Regalo exclusivo del jefe</small><h2>${one?'¡HAS RECIBIDO '+(keys[0].startsWith('ti:')?'UN TÍTULO':keys[0].startsWith('f:')?'UN MARCO':keys[0].startsWith('av:')?'UNA CARA':'ALGO')+'!':'¡HAS RECIBIDO '+keys.length+' COSAS!'}</h2>
+   <div class="xit">${keys.map((k,i)=>`<div class="xi" style="animation-delay:${.15+i*.12}s">${excPrev(k)}<b>${esc(excName(k))}</b></div>`).join('')}</div>
+   <p>Esto no se consigue jugando. Solo lo tiene quien el jefe elige.</p><button class="btn big" id="excOn">¡Ponérmelo ya!</button><button class="linkb" id="excX">Guardar para luego</button></div>`;
+  el.hidden=false;sfx('big');confetti(220);setTimeout(()=>{try{sfx('coin')}catch(e){}confetti(120)},600);
+  const done=()=>{el.hidden=true;excOpen=false;excTry()};
+  $('#excOn').onclick=()=>{const c=myCos();keys.forEach(key=>{const i=key.indexOf(':'),k=key.slice(0,i),id=key.slice(i+1);if(k==='av')S.av=id;else c[k]=id});save();renderMe();try{if(view==='perfil')renderPerfil()}catch(e){}NET.lastP='';pushPlayer();sfx('buy');toast('¡Puesto!','Ya lo ve todo el mundo en el ranking','#b06bff','👑');done()};
+  $('#excX').onclick=()=>{toast('Guardado','Lo tienes en tu Perfil cuando quieras','#b06bff','👑');done()}}
+const _acEx=applyCmd;applyCmd=function(id,c){if(!c||(c.type!=='exc'&&c.type!=='excrm'))return _acEx.apply(this,arguments);
+  S.cmdDone=S.cmdDone||[];if(S.cmdDone.includes(id))return;S.cmdDone.push(id);if(S.cmdDone.length>120)S.cmdDone.shift();
+  const t=String(c.text||''),keys=(t.startsWith('pack:')?(EXC_PACKS[t.slice(5)]||[]):[t]).filter(k=>EXC_ALL.includes(k));if(!keys.length)return;S.exc=S.exc||[];
+  if(c.type==='excrm'){S.exc=S.exc.filter(k=>!keys.includes(k));const cc=myCos();keys.forEach(key=>{const i=key.indexOf(':'),k=key.slice(0,i),v=key.slice(i+1);if(k==='av'){if(S.av===v)S.av='😎'}else if(cc[k]===v)cc[k]=COS[k][0][0]});save();renderMe();NET.lastP='';pushPlayer();return}
+  keys.forEach(k=>{if(!S.exc.includes(k))S.exc.push(k)});save();NET.lastP='';pushPlayer();excShow(keys)};
+/* que los títulos exclusivos se vean especiales en el ranking */
+(()=>{const mark=root=>{(root||document).querySelectorAll('.tt,.ptt,.ptitle,#rkTitle').forEach(e=>{const on=EXC_TI.has(e.textContent.trim());if(on!==e.classList.contains('xtt'))e.classList.toggle('xtt',on)})};
+  new MutationObserver(ms=>{for(const m of ms){const tg=m.target;if(tg&&tg.nodeType===1&&tg.matches('.tt,.ptt,.ptitle,#rkTitle'))mark(tg.parentNode)}for(const m of ms)for(const n of m.addedNodes)if(n.nodeType===1){if(n.matches&&n.matches('.tt,.ptt,.ptitle'))mark(n.parentNode);else if(n.querySelector&&n.querySelector('.tt,.ptt,.ptitle'))mark(n)}}).observe(document.body,{childList:true,subtree:true});mark()})();
+/* panel del jefe: dar y quitar exclusivos */
+const _rasEx=renderAdmSide;renderAdmSide=function(){_rasEx.apply(this,arguments);const el=$('#admSide'),p=ADM.sel&&NET.players.get(ADM.sel);if(!p)return;
+  const has=new Set(Array.isArray(p.exc)?p.exc:[]),anchor=[...el.querySelectorAll('.alab')].find(x=>/Recuperar/.test(x.textContent));
+  const h=`<span class="alab">👑 Exclusivos · solo tú puedes darlos</span><div class="excad">${Object.keys(EXC_PACKS).map(k=>`<button class="pk" data-xg="pack:${k}">Pack ${k.toUpperCase()}</button>`).join('')}${EXC_ALL.map(k=>`<button data-xg="${esc(k)}" aria-pressed="${has.has(k)}" title="${has.has(k)?'Lo tiene · pulsa para quitárselo':'Dárselo'}">${has.has(k)?'✓ ':''}${esc(excName(k))}</button>`).join('')}</div><p class="netmsg" style="margin:0">Le sale en grande en su pantalla. Si ya lo tiene (✓), al pulsar se lo quitas.</p>`;
+  if(anchor)anchor.insertAdjacentHTML('beforebegin',h);else el.insertAdjacentHTML('beforeend',h)};
+$('#admSide').addEventListener('click',async e=>{const b=e.target.closest('[data-xg]');if(!b||!ADM.sel)return;const key=b.dataset.xg,on=b.getAttribute('aria-pressed')==='true',nm=(NET.players.get(ADM.sel)||{}).name||'ese';
+  b.disabled=true;const ok=await sendCmd(ADM.sel,on?'excrm':'exc',0,key);b.disabled=false;
+  if(ok){sfx('coin');toast(on?'Exclusivo quitado':'Exclusivo enviado',esc(nm)+' · '+esc(key.startsWith('pack:')?'Pack '+key.slice(5).toUpperCase():excName(key)),'#b06bff','👑')}});
+(()=>{const g=$('#admGlobal');if(!g)return;g.insertAdjacentHTML('beforeend',`<div class="row"><select class="inp" id="gxSel" aria-label="Exclusivo para todos">${Object.keys(EXC_PACKS).map(k=>`<option value="pack:${k}">Pack ${k.toUpperCase()}</option>`).join('')}${EXC_ALL.map(k=>`<option value="${esc(k)}">${esc(excName(k))}</option>`).join('')}</select><button class="btn" id="gxGo" style="background:#7a2cff;color:#fff">👑 Dar a todos los jugadores</button></div><p class="netmsg" style="margin:0">Perfecto para el pack OG: se lo llevan todos los que ya están en el ranking ahora. Los que lleguen después no lo tendrán.</p>`);
+  $('#gxGo').onclick=async()=>{const b=$('#gxGo'),key=$('#gxSel').value,ids=[...NET.players.keys()];if(!ids.length)return;
+    if(b.dataset.c!=='1'){b.dataset.c='1';b.textContent='¿Seguro? Pulsa otra vez ('+ids.length+' jugadores)';setTimeout(()=>{b.dataset.c='';b.textContent='👑 Dar a todos los jugadores'},3500);return}
+    b.dataset.c='';b.disabled=true;let ok=0;for(const id of ids){if(await sendCmd(id,'exc',0,key))ok++}b.disabled=false;b.textContent='👑 Dar a todos los jugadores';$('#gState').textContent='Exclusivo enviado a '+ok+' de '+ids.length+' jugadores';sfx('big');confetti(100)}})();
+i18nAdd([['Saltar a otra ruleta · 1.000 € ›','Skip to another wheel · €1,000 ›','Passer à une autre roue · 1 000 € ›','Saltar para outra roda · 1.000 € ›'],
+ ['Exclusivo','Exclusive','Exclusif','Exclusivo'],['¡Ponérmelo ya!','Put it on now!','Je le mets !','Pôr já!'],['Guardar para luego','Save for later','Garder pour plus tard','Guardar para depois'],
+ ['👑 Regalo exclusivo del jefe','👑 Exclusive gift from the boss','👑 Cadeau exclusif du boss','👑 Prenda exclusiva do chefe'],
+ ['Esto no se consigue jugando. Solo lo tiene quien el jefe elige.','You can\'t get this by playing. Only those the boss chooses have it.','Ça ne s\'obtient pas en jouant. Seuls ceux que le boss choisit l\'ont.','Isto não se consegue a jogar. Só o tem quem o chefe escolhe.']]);
 })();
 </script>
 
